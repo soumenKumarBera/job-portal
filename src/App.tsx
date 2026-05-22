@@ -1,25 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createTheme, MantineProvider } from "@mantine/core";
+
+import "@mantine/core/styles.css";
+import HomePage from "./Pages/HomePage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
 
 function App() {
+  const theme = createTheme({
+    colors: {
+      "mine-shaft": [
+        "#212121",
+        "#1e1e1e",
+        "#1b1b1b",
+        "#181818",
+        "#151515",
+        "#121212",
+        "#0f0f0f",
+        "#0c0c0c",
+        "#090909",
+        "#060606",
+      ],
+      "bright-sun": [
+        "#ffcc00",
+        "#ffbf00",
+        "#ffb300",
+        "#ffa600",
+        "#ff9900",
+        "#ff8d00",
+        "#ff8000",
+        "#ff7300",
+        "#ff6600",
+        "#ff5a00",
+      ],
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MantineProvider theme={theme}>
+       <BrowserRouter>
+        <Routes>
+         <Route path="*" element={<HomePage />} />
+         </Routes>
+       </BrowserRouter>
+      
+    
+      
+      
+    </MantineProvider>
   );
 }
 
