@@ -5,7 +5,7 @@ import { ArrowRightIcon, ArrowLeftIcon } from "@phosphor-icons/react";
 
 const JobCategory = () => {
   return (
-    <div mt-20 pb-5>
+    <div mt-20 >
       <div className="text-center text-4xl font-semibold text-mine-shaft-100 pb-3 mt-6">
         Browse <span className="text-bright-sun-400">Job</span> Categories
       </div>
@@ -16,6 +16,7 @@ const JobCategory = () => {
       <Carousel
         slideSize="22%"
         slideGap="md"
+        className="[&_button]:!bg-bright-sun-400 [&_button]:!border-none [&_button]:hover:opacity-75 [&_button]:opacity-0 hover:[&_button]:opacity-100 " 
         nextControlIcon={<ArrowRightIcon className="h-8 w-8" />}
         previousControlIcon={<ArrowLeftIcon className="h-8 w-8" />}
         emblaOptions={{
@@ -26,7 +27,7 @@ const JobCategory = () => {
       >
         {jobCategory.map((category, index) => (
           <Carousel.Slide key={index}>
-            <div className="flex flex-col items-center  w-64 gap-2 border border-bright-sun-400 rounded-lg p-4  hover:shadow-lg my-5 transition duration-300 ease-in-out hover:shadow-[0_0_5px_2px_black] !shadow-bright-sun-300 hover:cursor-pointer  ">
+            <div className="flex flex-col items-center  w-64 gap-2 border border-bright-sun-400 rounded-lg p-4  hover:shadow-lg my-5 transition duration-300 ease-in-out hover:shadow-[0_0_5px_5px_black] !shadow-bright-sun-300 hover:cursor-pointer  ">
               <div className="p-2 bg-bright-sun-300 rounded-full">
                 {" "}
                 <img
