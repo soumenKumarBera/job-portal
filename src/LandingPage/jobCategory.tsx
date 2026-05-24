@@ -5,7 +5,7 @@ import { ArrowRightIcon, ArrowLeftIcon } from "@phosphor-icons/react";
 
 const JobCategory = () => {
   return (
-    <div mt-20 >
+    <div mt-20 pb-10>
       <div className="text-center text-4xl font-semibold text-mine-shaft-100 pb-3 mt-6">
         Browse <span className="text-bright-sun-400">Job</span> Categories
       </div>
@@ -27,7 +27,7 @@ const JobCategory = () => {
       >
         {jobCategory.map((category, index) => (
           <Carousel.Slide key={index}>
-            <div className="flex flex-col items-center  w-64 gap-2 border border-bright-sun-400 rounded-lg p-4  hover:shadow-lg my-5 transition duration-300 ease-in-out hover:shadow-[0_0_5px_5px_black] !shadow-bright-sun-300 hover:cursor-pointer  ">
+            <div className="flex flex-col items-center  w-64 gap-2 border border-bright-sun-400 rounded-lg p-4  hover:shadow-lg my-5 transition duration-300 ease-in-out hover:shadow-[0_0_5px_6px_black] !shadow-bright-sun-300 hover:cursor-pointer  ">
               <div className="p-2 bg-bright-sun-300 rounded-full">
                 {" "}
                 <img
