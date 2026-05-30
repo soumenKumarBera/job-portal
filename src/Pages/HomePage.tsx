@@ -1,3 +1,4 @@
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Companies from "../LandingPage/Companies";
 import DreamJob from "../LandingPage/DreamJob";
@@ -18,6 +19,7 @@ const HomePage = () => {
       <Working />
      <Testimonials/>
      <Subscribe/>
+     <Footer />
       </div>
 
     </>
