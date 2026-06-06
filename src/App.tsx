@@ -38,10 +38,11 @@ function App() {
         "#ff5a00",
       ],
     },
+    fontFamily: "Poppins, sans-serif",
   });
 
   return (
-    <MantineProvider theme={theme}>
+    <MantineProvider defaultColorScheme="dark" theme={theme}>
        <BrowserRouter>
        <Header />
         <Routes>
