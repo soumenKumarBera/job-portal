@@ -7,6 +7,7 @@ import '@mantine/carousel/styles.css';
 import HomePage from "./Pages/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FindJobsPage from "./Pages/FindJobsPage";
+import FindTalentPage from "./Pages/FindTalentPage";
 
 // import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
 
@@ -47,6 +48,7 @@ function App() {
        <Header />
         <Routes>
           <Route path="/find-jobs" element={<FindJobsPage />} />
+          <Route path="/find-talent" element={<FindTalentPage />} />
          <Route path="*" element={<HomePage />} />
          </Routes>
          <Footer />
