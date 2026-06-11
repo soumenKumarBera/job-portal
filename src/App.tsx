@@ -3,11 +3,12 @@ import { createTheme, MantineProvider } from "@mantine/core";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import "@mantine/core/styles.css";
-import '@mantine/carousel/styles.css';
+import "@mantine/carousel/styles.css";
 import HomePage from "./Pages/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FindJobsPage from "./Pages/FindJobsPage";
 import FindTalentPage from "./Pages/FindTalentPage";
+import TalentPrifilePage from "./Pages/TalentProfilePage";
 
 // import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
 
@@ -44,19 +45,17 @@ function App() {
 
   return (
     <MantineProvider defaultColorScheme="dark" theme={theme}>
-       <BrowserRouter>
-       <Header />
+      <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/find-jobs" element={<FindJobsPage />} />
           <Route path="/find-talent" element={<FindTalentPage />} />
-         <Route path="*" element={<HomePage />} />
-         </Routes>
-         <Footer />
-       </BrowserRouter>
-      
-    
-      
-      
+          <Route path="/talent-profile" element={<TalentPrifilePage />} />
+
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </MantineProvider>
   );
 }
