@@ -2,7 +2,7 @@ import { TextInput, Button } from "@mantine/core";
 
 const Subscribe = () => {
   return (
-    <div className="mt-20 flex items-center bg-mine-shaft-900 mx-20 py-3   rounded-xl justify-around">
+    <div className="mt-20   flex items-center bg-mine-shaft-900 mx-20 py-3   rounded-xl justify-around">
       <div className=" w-2/5 text-center text-4xl font-semibold text-mine-shaft-100 pb-3 mt-6">
         Never Wants to Miss <br /> Any{" "}
         <span className="text-bright-sun-400">Job News</span>

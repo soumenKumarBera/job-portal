@@ -4,6 +4,7 @@ import { Text, Avatar, Button } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Profile from "../TalentProfile/Profile";
 import {profile} from "../Data/TalentData" 
+import RecommentTelant from "../TalentProfile/Recomment";
 
 const TalentPrifilePage = () => {
   return (
@@ -20,8 +21,9 @@ const TalentPrifilePage = () => {
         </Button>
       </Link>
       {/* <Divider size="xs" /> */}
-      <div className = "flex">
+      <div className = "flex ">
         <Profile {...profile}/>
+        <RecommentTelant />
 
       </div>
 

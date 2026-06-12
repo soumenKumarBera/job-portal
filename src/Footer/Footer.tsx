@@ -11,8 +11,8 @@ import { footerLinks } from "../Data/Data";
 
 const Footer = () => {
   return (
-    <div className=" pt-20 pb-5 flex gap-5 justify-around  bg-mine-shaft-900 font-['Poppins']">
-      <div className="w-1/4 flex flex-col gap-4">
+    <div className=" pt-20 pb-5 flex gap-5 justify-around   font-['Poppins']">
+      <div className="w-1/4 flex flex-col gap-4 ">
         <div className="flex gap-1.5 items-center text-bright-sun-500">
           <IconAnchor className="size-10" stroke={2.5} />
           <div className="text-3xl font-semibold">JobHook </div>
@@ -53,3 +53,4 @@ const Footer = () => {
   );
 };
 export default Footer;
+
