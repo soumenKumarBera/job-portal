@@ -2,18 +2,27 @@ import { createTheme, MantineProvider } from "@mantine/core";
 
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
+// @ts-ignore: side-effect CSS import has no type declarations
 import "@mantine/core/styles.css";
+// @ts-ignore: side-effect CSS import has no type declarations
 import "@mantine/carousel/styles.css";
+// @ts-ignore: side-effect CSS import has no type declarations
+import "@mantine/tiptap/styles.css";
 import HomePage from "./Pages/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FindJobsPage from "./Pages/FindJobsPage";
 import FindTalentPage from "./Pages/FindTalentPage";
 import TalentPrifilePage from "./Pages/TalentProfilePage";
+import PostJobPage from "./Pages/PostJobPage";
 
 // import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
 
 function App() {
   const theme = createTheme({
+    focusRing: "never",
+    fontFamilyMonospace: "poppins, sans-serif",
+    primaryColor: "bright-sun",
+    primaryShade: 4,
     colors: {
       "mine-shaft": [
         "#212121",
@@ -51,6 +60,7 @@ function App() {
           <Route path="/find-jobs" element={<FindJobsPage />} />
           <Route path="/find-talent" element={<FindTalentPage />} />
           <Route path="/talent-profile" element={<TalentPrifilePage />} />
+          <Route path="/post-job" element={<PostJobPage />} />
 
           <Route path="*" element={<HomePage />} />
         </Routes>
