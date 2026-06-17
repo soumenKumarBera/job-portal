@@ -3,9 +3,13 @@ import { Text, Avatar, Button } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { Divider } from "@mantine/core";
 import { ActionIcon } from "@mantine/core";
-import { card, skills } from "../Data/JobDescData";
+import { card, skills, desc } from "../Data/JobDescData";
+
+import DOMPurify from "dompurify";
 
 const JobDecs = () => {
+  const data = DOMPurify.sanitize(desc);
+
   return (
     <div className="w-2/3  pb-5">
       <div className="flex justify-between">
@@ -76,8 +80,46 @@ const JobDecs = () => {
         </div>
       </div>
 
-         <Divider size="xs" my="xl" />
+      <Divider size="xs" my="xl" />
 
+      <div
+        className="[&_h4]:text-xl [&_h4]:my-5 [&_h4]:font-semibold [&_h4]:text-mine-shaft-200  [&_p]:text-justify  [&_*]:text-mine-shaft-300 
+       [&_li]:marker:text-bright-sun-400 [&_li]:mb-1 "
+        dangerouslySetInnerHTML={{ __html: data }}
+      ></div>
+
+      <Divider size="xs" my="xl" />
+
+      <div>
+        <div className="text-xl font-semibold mb-5">About Company</div>
+        <div className="flex justify-between mb-3">
+          <div className="flex gap-2 items-center">
+            <div className="p-3 bg-mine-shaft-600 rounded-xl">
+              <img className="h-8 " src={`/Icons/Google.png`} alt="google" />
+            </div>
+            <div>
+              <div className="font-medium">Google</div>
+              <div className=" text-mine-shaft-400">10K+ Employees</div>
+            </div>
+          </div>
+
+          <Link to="">
+            <Button
+              variant="light"
+              className="!text-bright-sun-400"
+              color="orange"
+            >
+              Company Page
+            </Button>
+          </Link>
+        </div>
+        <div className="text-mine-shaft-300 text-justify">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem, quis
+          minima assumenda sunt, doloribus accusantium nobis laudantium modi
+          dolore facere veniam, ea ipsam. Rerum cupiditate, inventore fugit
+          sapiente suscipit quasi.
+        </div>
+      </div>
     </div>
   );
 };

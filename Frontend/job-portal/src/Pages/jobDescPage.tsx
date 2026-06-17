@@ -6,6 +6,7 @@ import Profile from "../TalentProfile/Profile";
 import { profile } from "../Data/TalentData";
 import RecommentTelant from "../TalentProfile/Recomment";
 import JobDecs from "../JobDesc/JobDesc";
+import RecommendedJob from "../JobDesc/RecommendedJob";
 
 const JobdescPage = () => {
   return (
@@ -21,9 +22,10 @@ const JobdescPage = () => {
         </Button>
       </Link>
       {/* <Divider size="xs" /> */}
-      <div className="flex gap-5">
+      <div className="flex gap-5 pb-5 justify-around">
 
         <JobDecs />
+        <RecommendedJob/>
        
       </div>
     </div>
