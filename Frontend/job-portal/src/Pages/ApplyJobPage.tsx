@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { Text, Avatar, Button } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
+import ApplyJobCom from "../ApplyJob/ApplyJobComp";
 const ApplyJobPage = () => {
   return (
     <div className="min-h-[100vh] bg-mine-shaft-800 font-['Poppins'] px-4">
@@ -15,6 +16,7 @@ const ApplyJobPage = () => {
           Back
         </Button>
       </Link>
+      <ApplyJobCom />
 
     </div>
   );
