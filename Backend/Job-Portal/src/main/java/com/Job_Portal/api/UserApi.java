@@ -1,24 +1,31 @@
 package com.Job_Portal.api;
 
+import com.Job_Portal.dto.UserDto;
 import com.Job_Portal.entity.User;
-import com.Job_Portal.repositry.UserReposertory;
+import com.Job_Portal.repositry.UserRepository;
+import com.Job_Portal.services.UserServiceImpl;
+import com.Job_Portal.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/users")
 public class UserApi {
+
     @Autowired
-    UserReposertory userReposertory;
+    private UserServices userServices;
 
-    @PostMapping("/add")
-    public ResponseEntity<?> add(@RequestBody User user){
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto){
 
-        User us = userReposertory.save(user);
+        userDto = userServices.register(userDto);
 
-        return ResponseEntity.ok(us);
+
+
+        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
 
 
 
