@@ -103,7 +103,7 @@ const JobDecs = () => {
             </div>
           </div>
 
-          <Link to="">
+          <Link to="/company">
             <Button
               variant="light"
               className="!text-bright-sun-400"

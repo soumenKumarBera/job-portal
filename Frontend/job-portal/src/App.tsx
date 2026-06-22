@@ -16,6 +16,7 @@ import TalentPrifilePage from "./Pages/TalentProfilePage";
 import PostJobPage from "./Pages/PostJobPage";
 import JobdescPage from "./Pages/jobDescPage";
 import ApplyJobPage from "./Pages/ApplyJobPage";
+import CompanyPage from "./Pages/CompannyPage";
 
 // import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
 
@@ -67,6 +68,8 @@ function App() {
             <Route path="/talent-profile" element={<TalentPrifilePage />} />
             <Route path="/post-job" element={<PostJobPage />} />
             <Route path="/apply-job" element={<ApplyJobPage />} />
+            <Route path="/company" element={<CompanyPage />} />
+
 
             <Route path="*" element={<HomePage />} />
           </Routes>
