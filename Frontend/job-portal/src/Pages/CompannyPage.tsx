@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Text, Avatar, Button } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Company from "../CompanyProfile/Company";
+import SimilarCompany from "../CompanyProfile/SimilarCompany";
 
 const CompanyPage = () => {
   const navigate = useNavigate();
@@ -25,8 +26,9 @@ const CompanyPage = () => {
         </Button>
       </div>
       {/* <Divider size="xs" /> */}
-      <div className="flex ">
+      <div className="flex justify-between">
         <Company />
+        <SimilarCompany />
       </div>
     </div>
   );
