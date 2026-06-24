@@ -45,37 +45,82 @@ const TalentCard = (props: any) => {
         {props.about} {/* Text content */}
       </Text>
       <Divider size="xs" color="mine-shaft.7" />
-      
-      <div className="flex justify-between text-sm ">
-        <div className="font-semibold">{props.expectedCtc}</div>
-        <div className="flex items-center gap-1 text-mine-shaft-300">
-          <IconMapPin className="size-5" stroke={1.5} /> {props.location}
+      {props.invited ? (
+        <div className=" flex gap-1 text-mine-shaft-200 text-sm items-center">
+          <IconCalendar stroke={1.5} /> Interview: August 26, 2024 10:00 AM
         </div>
-      </div>
+      ) : (
+        <div className="flex justify-between text-sm ">
+          <div className="font-semibold">{props.expectedCtc}</div>
+          <div className="flex items-center gap-1 text-mine-shaft-300">
+            <IconMapPin className="size-5" stroke={1.5} /> {props.location}
+          </div>
+        </div>
+      )}
+
       <Divider size="xs" color="mine-shaft.7" />
       <div className="flex [&>*]:w-1/2 [&>*]:p-1">
-        <Link to="/talent-profile ">
-          <Button color="bright-sun.4 " variant="outline" radius="sm" fullWidth>
-            Profile
-          </Button>
-        </Link>
-        <div>
-          {props.posted ? (
-            <Button
-              onClick={open}
-              rightSection={<IconCalendar className="size-5" />}
-              variant="light"
-              radius="sm"
-              fullWidth
-            >
-              Schedule
-            </Button>
-          ) : (
-            <Button color="bright-sun.4 " variant="light" radius="sm" fullWidth>
-              Message
-            </Button>
-          )}
-        </div>
+        {!props.invited && (
+          <>
+            <Link to="/talent-profile ">
+              <Button
+                color="bright-sun.4 "
+                variant="outline"
+                radius="sm"
+                fullWidth
+              >
+                Profile
+              </Button>
+            </Link>
+            <div>
+              {props.posted ? (
+                <Button
+                  onClick={open}
+                  rightSection={<IconCalendar className="size-5" />}
+                  variant="light"
+                  radius="sm"
+                  fullWidth
+                >
+                  Schedule
+                </Button>
+              ) : (
+                <Button
+                  color="bright-sun.4 "
+                  variant="light"
+                  radius="sm"
+                  fullWidth
+                >
+                  Message
+                </Button>
+              )}
+            </div>
+          </>
+        )}
+        {props.invited && (
+          <>
+            <div>
+              <Button
+                color="bright-sun.4 "
+                variant="outline"
+                radius="sm"
+                fullWidth
+              >
+                Accept
+              </Button>
+            </div>
+            <div>
+              {" "}
+              <Button
+               
+                variant="light"
+                radius="sm"
+                fullWidth
+              >
+                Reject
+              </Button>
+            </div>
+          </>
+        )}
       </div>
 
       <Modal
@@ -99,7 +144,9 @@ const TalentCard = (props: any) => {
             onClick={() => ref.current?.showPicker()}
           />
 
-         <Button variant="light" fullWidth >Schedule</Button>
+          <Button variant="light" fullWidth>
+            Schedule
+          </Button>
         </div>
       </Modal>
     </div>
