@@ -1,18 +1,29 @@
-import { IconHeart } from "@tabler/icons-react";
+import { IconCalendar, IconHeart } from "@tabler/icons-react";
 import { Text, Avatar, Button } from "@mantine/core";
 import { Divider } from "@mantine/core";
 import { IconMapPin } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
+import { useDisclosure } from "@mantine/hooks";
+import { Modal } from "@mantine/core";
+import { DateInput } from "@mantine/dates";
+import { useState } from "react";
+import { TimeInput } from "@mantine/dates";
+import { useRef } from "react";
+
 const TalentCard = (props: any) => {
+  const [opened, { open, close }] = useDisclosure(false);
+  const [value, setValue] = useState<string | null>(null);
+  const ref = useRef<HTMLInputElement>(null);
+
   return (
-    <div className="bg-mine-shaft-700 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !bright-sun-400 cursor-pointer">
+    <div className="bg-mine-shaft-700 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !bright-sun-400 cursor-pointer mb-5">
       <div className="flex justify-between ">
         <div className="flex gap-2 items-center">
           <div className="p-2 bg-mine-shaft-600 rounded-full">
             <Avatar
               className="h-7 "
-              src={`/&{props.image}.png`}
+              src={`/${props.image}.png`}
               alt={props.image}
             />
           </div>
@@ -31,9 +42,10 @@ const TalentCard = (props: any) => {
         ))}
       </div>
       <Text lineClamp={3} className="text-xs text-justify text-mine-shaft-300 ">
-          {props.about}        {/* Text content */}
+        {props.about} {/* Text content */}
       </Text>
       <Divider size="xs" color="mine-shaft.7" />
+      
       <div className="flex justify-between text-sm ">
         <div className="font-semibold">{props.expectedCtc}</div>
         <div className="flex items-center gap-1 text-mine-shaft-300">
@@ -48,11 +60,48 @@ const TalentCard = (props: any) => {
           </Button>
         </Link>
         <div>
-          <Button color="bright-sun.4 " variant="light" radius="sm" fullWidth>
-            Message
-          </Button>
+          {props.posted ? (
+            <Button
+              onClick={open}
+              rightSection={<IconCalendar className="size-5" />}
+              variant="light"
+              radius="sm"
+              fullWidth
+            >
+              Schedule
+            </Button>
+          ) : (
+            <Button color="bright-sun.4 " variant="light" radius="sm" fullWidth>
+              Message
+            </Button>
+          )}
         </div>
       </div>
+
+      <Modal
+        opened={opened}
+        onClose={close}
+        title="Schedule InterView"
+        centered
+      >
+        {/* Modal content */}
+        <div className=" flex flex-col gap-5">
+          <DateInput
+            value={value}
+            onChange={setValue}
+            label="Date"
+            placeholder="Enter Date"
+          />
+
+          <TimeInput
+            label="Time"
+            ref={ref}
+            onClick={() => ref.current?.showPicker()}
+          />
+
+         <Button variant="light" fullWidth >Schedule</Button>
+        </div>
+      </Modal>
     </div>
   );
 };
