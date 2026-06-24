@@ -1,4 +1,8 @@
-import { IconBookmarkFilled, IconBookmark } from "@tabler/icons-react";
+import {
+  IconBookmarkFilled,
+  IconBookmark,
+  IconCalendar,
+} from "@tabler/icons-react";
 import { Text, Button } from "@mantine/core";
 import { Divider } from "@mantine/core";
 import { IconClockHour4 } from "@tabler/icons-react";
@@ -53,7 +57,7 @@ const Card = (jobDetails: any) => {
         <div className="font-semibold">&#8377;{jobDetails.package} </div>
         <div className="flex items-center gap-1 text-mine-shaft-300">
           <IconClockHour4 className="size-5" stroke={1.5} />
-          {jobDetails.applied
+          {jobDetails.applied || jobDetails.interviewing 
             ? "Applied"
             : jobDetails.offered
               ? "Interviewed"
@@ -61,10 +65,12 @@ const Card = (jobDetails: any) => {
           {jobDetails.postedDaysAgo} days ago
         </div>
       </div>
-      {jobDetails.offered &&   <Divider size="xs" color="mine-shaft.7" />}
+      { (jobDetails.interviewing || jobDetails.offered )&& (
+        <Divider size="xs" color="mine-shaft.7" />
+      )}
 
-      {
-       jobDetails.offered && <div className="flex gap-2">
+      {jobDetails.offered && (
+        <div className="flex gap-2">
           <Button color="bright-sun.4 " variant="outline" radius="sm" fullWidth>
             Accept
           </Button>
@@ -72,7 +78,15 @@ const Card = (jobDetails: any) => {
             Reject
           </Button>
         </div>
-      }
+      )}
+
+      {jobDetails.interviewing && (
+        <div className=" flex gap-1 text-mine-shaft-200 text-sm items-center">
+          <IconCalendar stroke={1.5} className="text-bright-sun-400 size-5" />
+          Sun, 26 August &bull;{" "}
+          <span className="text-mine-shaft-400">10:00 AM</span>
+        </div>
+      )}
     </Link>
   );
 };
