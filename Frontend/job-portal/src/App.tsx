@@ -17,6 +17,11 @@ import PostJobPage from "./Pages/PostJobPage";
 import JobdescPage from "./Pages/jobDescPage";
 import ApplyJobPage from "./Pages/ApplyJobPage";
 import CompanyPage from "./Pages/CompannyPage";
+import PostedJOb from "./Pages/PostedJobPage";
+import PostedJobPage from "./Pages/PostedJobPage";
+// @ts-ignore: side-effect CSS import has no type declarations
+import "@mantine/dates/styles.css";
+// ‼️ import dates styles after core package styles
 
 // import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
 
@@ -69,9 +74,9 @@ function App() {
             <Route path="/post-job" element={<PostJobPage />} />
             <Route path="/apply-job" element={<ApplyJobPage />} />
             <Route path="/company" element={<CompanyPage />} />
+            <Route path="/posted-job" element={<PostedJobPage />} />
 
-
-            <Route path="*" element={<HomePage />} />
+            <Route path="/*" element={<HomePage />} />
           </Routes>
           <Footer />
         </div>

@@ -7,7 +7,7 @@ import { card, skills, desc } from "../Data/JobDescData";
 
 import DOMPurify from "dompurify";
 
-const JobDecs = () => {
+const JobDecs = (props:any) => {
   const data = DOMPurify.sanitize(desc);
 
   return (
@@ -32,13 +32,21 @@ const JobDecs = () => {
               className="!text-bright-sun-400"
               color="orange"
             >
-              Apply
+              {props.edit? "Edit": "Apply"}
             </Button>
           </Link>
-          <IconBookmark
+
+          {props.edit?   <Button
+              variant="outline"
+              className="!text-bright-sun-400"
+              color="red.5"
+            >
+              Delete
+            </Button>: <IconBookmark
             stroke={2}
             className="text-mine-shaft-300 cursor-pointer"
-          />
+          /> }
+         
         </div>
       </div>
       <Divider size="xs" my="xl" />
