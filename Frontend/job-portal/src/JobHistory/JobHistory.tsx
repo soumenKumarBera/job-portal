@@ -4,7 +4,7 @@ import Card from "./Card";
 
 const JobHistory = () => {
   return (
-    <div className=" mt-5">
+    <div className=" mt-5 mb-5">
       <div className="text-2xl font-semibold mb-5">Job History</div>
       <div>
         <Tabs variant="outline" radius="lg" defaultValue="gallery">
@@ -25,14 +25,14 @@ const JobHistory = () => {
           <Tabs.Panel value="Saved">
             <div className="mt-10 gap-8 flex flex-wrap justify-center">
               {jobList.map((job, index) => (
-                <Card key={index} {...job} />
+                <Card key={index} {...job} saved/>
               ))}
             </div>
           </Tabs.Panel>
           <Tabs.Panel value="Offered">
             <div className="mt-10 gap-8 flex flex-wrap justify-center">
               {jobList.map((job, index) => (
-                <Card key={index} {...job} />
+                <Card key={index} {...job} offered/>
               ))}
             </div>
           </Tabs.Panel>
@@ -40,7 +40,7 @@ const JobHistory = () => {
             
             <div className="mt-10 gap-8 flex flex-wrap justify-center">
               {jobList.map((job, index) => (
-                <Card key={index} {...job} />
+                <Card key={index} {...job} interviewing />
               ))}
             </div>
           </Tabs.Panel>
