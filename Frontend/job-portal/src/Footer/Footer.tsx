@@ -8,9 +8,11 @@ import {
 } from "@tabler/icons-react";
 
 import { footerLinks } from "../Data/Data";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
-  return (
+  const location = useLocation();
+  return location.pathname != "/signup" && location.pathname != "/login" ? (
     <div className=" pt-20 pb-5 flex gap-5 justify-around   font-['Poppins']">
       <div className="w-1/4 flex flex-col gap-4 ">
         <div className="flex gap-1.5 items-center text-bright-sun-500">
@@ -34,23 +36,24 @@ const Footer = () => {
         </div>
       </div>
 
-      
-        {footerLinks.map((item, index) => (
-          <div key={index}>
-            <div className="text-lg font-semibold mb-4 text-bright-sun-400">{item.title}</div>
-            {item.links.map((link, index) => (
-              <div
-                key={index}
-                className="text-sm text-mine-shaft-300 cursor-pointer hover:text-bright-sun-400 mb-1 hover:translate-x-2 transition duration-500  "
-              >
-                {link}
-              </div>
-            ))}
+      {footerLinks.map((item, index) => (
+        <div key={index}>
+          <div className="text-lg font-semibold mb-4 text-bright-sun-400">
+            {item.title}
           </div>
-        ))}
-      </div>
-    
+          {item.links.map((link, index) => (
+            <div
+              key={index}
+              className="text-sm text-mine-shaft-300 cursor-pointer hover:text-bright-sun-400 mb-1 hover:translate-x-2 transition duration-500  "
+            >
+              {link}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  ) : (
+    <></>
   );
 };
 export default Footer;
-
