@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 @NoArgsConstructor
 public class UserDto {
 
+
     private String id;
     @NotBlank(message ="Name in null or blank")
     private String name;
@@ -27,7 +28,7 @@ public class UserDto {
     @NotBlank(message = "password in null or blank")
     @Pattern(
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,15}$",
-            message = "Password must contain 1 uppercase, 1 lowercase, 1 number, 1 special character and be 8-15 characters long"
+            message = "uppercase, lowercase,number,special character and 8-15."
     )
     private String password;
 
