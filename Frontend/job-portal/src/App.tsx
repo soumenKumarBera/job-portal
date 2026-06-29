@@ -23,6 +23,8 @@ import PostedJobPage from "./Pages/PostedJobPage";
 import "@mantine/dates/styles.css";
 import JobHistoryPage from "./Pages/JobHistoryPage";
 import SignUpPage from "./Pages/SignUpPage";
+import ProfilePage from "./Pages/ProfilePage";
+
 // ‼️ import dates styles after core package styles
 
 // import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
@@ -78,9 +80,10 @@ function App() {
             <Route path="/company" element={<CompanyPage />} />
             <Route path="/posted-job" element={<PostedJobPage />} />
             <Route path="/job-history" element={<JobHistoryPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/login" element={<SignUpPage />} />
             <Route path="/signup" element={<SignUpPage />} />
-
+        
 
             <Route path="/*" element={<HomePage />} />
           </Routes>

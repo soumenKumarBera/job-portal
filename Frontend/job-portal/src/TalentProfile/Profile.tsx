@@ -6,7 +6,7 @@ import CertCard from "./CertCard";
 
 const Profile = (props: any) => {
   return (
-    <div className="w-3/3 pb-10">
+    <div className="w-2/3 pb-10">
       <div className="relative">
         <img className="rounded-t-xl" src="/Profile/banner.jpg" alt="" />
         <img
