@@ -1,3 +1,4 @@
+import React from "react";
 import {
   IconBraces,
   IconBriefcase,
@@ -15,6 +16,7 @@ import SelectInput from "./SelectInput";
 import fields from "../Data/Profile";
 import { Textarea, TagsInput } from "@mantine/core";
 import ExpInput from "./ExpInput";
+import CertInput from "./CertInput";
 
 const Profile = (props: any) => {
   const skills = [
@@ -38,6 +40,7 @@ const Profile = (props: any) => {
   const [textInput, setTextInput] = useState(props.about);
   const [skill, setSkill] = useState(skills);
   const [addExp, setAddExp] = useState(false);
+   const [addCert, setAddCert] = useState(false);
 
   const [edit, setEdit] = useState([false, false, false, false, false]);
   const handelEdit = (index: any) => {
@@ -175,41 +178,36 @@ const Profile = (props: any) => {
       <div className="px-3">
         <div className="text-2xl font-semibold mb-5 flex justify-between">
           Experience
-
           <div className=" flex gap-2">
-             <ActionIcon
-            aria-label="Settings"
-            size="lg"
-            variant="subtle"
-            onClick={() => setAddExp(true)}
-          >
-          
+            <ActionIcon
+              aria-label="Settings"
+              size="lg"
+              variant="subtle"
+              onClick={() => setAddExp(true)}
+            >
               <IconPlus className="h-4/5 w-4/5 " />
-            
-          </ActionIcon>
+            </ActionIcon>
 
-           <ActionIcon
-            aria-label="Settings"
-            size="lg"
-            onClick={() => handelEdit(3)}
-          >
-            {edit[3] ? (
-              <IconDeviceFloppy className="h-4/5 w-4/5 " />
-            ) : (
-              <IconPencil className="h-4/5 w-4/5 " />
-            )}
-          </ActionIcon>
-            
+            <ActionIcon
+              aria-label="Settings"
+              size="lg"
+              onClick={() => handelEdit(3)}
+            >
+              {edit[3] ? (
+                <IconDeviceFloppy className="h-4/5 w-4/5 " />
+              ) : (
+                <IconPencil className="h-4/5 w-4/5 " />
+              )}
+            </ActionIcon>
           </div>
-         
         </div>
 
         <div className="flex flex-col gap-8">
           {props.experience.map((exp: any, index: any) => (
-            <ExpCard key={index} {...exp} edit = {edit[3]}/>
+            <ExpCard key={index} {...exp} edit={edit[3]} />
           ))}
 
-        {addExp && <ExpInput add setEdit = {setAddExp} />} 
+          {addExp && <ExpInput add setEdit={setAddExp} />}
         </div>
       </div>
 
@@ -218,23 +216,39 @@ const Profile = (props: any) => {
       <div className="px-3">
         <div className="text-2xl font-semibold mb-5 flex justify-between">
           Certicication
-          <ActionIcon
-            aria-label="Settings"
-            size="lg"
-            onClick={() => handelEdit(4)}
-          >
-            {edit[4] ? (
-              <IconDeviceFloppy className="h-4/5 w-4/5 " />
-            ) : (
-              <IconPencil className="h-4/5 w-4/5 " />
-            )}
-          </ActionIcon>
+         <div className=" flex gap-2">
+            <ActionIcon
+              aria-label="Settings"
+              size="lg"
+              variant="subtle"
+              onClick={() => setAddCert(true)}
+            >
+              <IconPlus className="h-4/5 w-4/5 " />
+            </ActionIcon>
+
+            <ActionIcon
+              aria-label="Settings"
+              size="lg"
+              onClick={() => handelEdit(4)}
+            >
+              {edit[4] ? (
+                <IconDeviceFloppy className="h-4/5 w-4/5 " />
+              ) : (
+                <IconPencil className="h-4/5 w-4/5 " />
+              )}
+            </ActionIcon>
+          </div>
         </div>
 
         <div className="flex flex-col gap-8">
           {props.certifications.map((cert: any, index: any) => (
-            <CertCard key={index} {...cert} />
+            <CertCard key={index} edit={edit[4]} {...cert} />
           ))}
+
+
+          {
+            addCert && <CertInput  setEdit = {setAddCert} />
+          }
         </div>
       </div>
     </div>
