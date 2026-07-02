@@ -1,5 +1,6 @@
 import { companyData } from "../Data/Company";
 
+
 const AboutComp = () => {
   const company: { [key: string]: any } = companyData;
 
