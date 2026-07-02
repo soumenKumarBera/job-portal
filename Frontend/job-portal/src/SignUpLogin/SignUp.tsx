@@ -1,8 +1,11 @@
 import { TextInput, PasswordInput, Checkbox, Anchor, Button } from "@mantine/core";
 import { AtIcon, LockIcon } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
+import { Radio, Group } from '@mantine/core';
+import { useState } from "react";
 
 const SignUp = () => {
+  const [value, setValue] = useState('APPLICANT');
   return (
     <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
       <div className="text-2xl font-sem">Create Account</div>
@@ -25,6 +28,20 @@ const SignUp = () => {
         withAsterisk
         placeholder="Confirm-Password"
       />
+      <Radio.Group
+      value={value}
+      onChange={setValue}
+      
+      label="You are?"
+    
+      withAsterisk
+    >
+        <Group mt="xs">
+      <Radio className="py-4 px-6 border border-mine-shaft-700 rounded-lg has-[:checked]:border-bright-sun-400 hover:bg-mine-shaft-700 has-[:checked]:bg-bright-sun-400/5" autoContrast value="APPLICANT" label="Applicant" />
+      <Radio className="py-4 px-6 border border-mine-shaft-700 rounded-lg has-[:checked]:border-bright-sun-400 hover:bg-mine-shaft-700 has-[:checked]:bg-bright-sun-400/5" autoContrast value="EMPLOYER" label="Employer" />
+
+        </Group>
+    </Radio.Group>
       <Checkbox
         autoContrast
         label={
