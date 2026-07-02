@@ -1,5 +1,6 @@
 package com.Job_Portal.api;
 
+import com.Job_Portal.dto.LoginDto;
 import com.Job_Portal.dto.UserDto;
 import com.Job_Portal.entity.User;
 import com.Job_Portal.repositry.UserRepository;
@@ -23,15 +24,15 @@ public class UserApi {
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> registerUser(@RequestBody @Valid UserDto userDto) throws Exception {
-
-
         userDto = userServices.register(userDto);
-
-
-
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);
 
+    }
 
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> loginUser(@RequestBody @Valid LoginDto loginDto) throws Exception {
+
+        return new ResponseEntity<>(userServices.loginUser(loginDto), HttpStatus.OK);
 
     }
 }

@@ -1,6 +1,7 @@
 package com.Job_Portal.services;
 
 import com.Job_Portal.dto.AccountType;
+import com.Job_Portal.dto.LoginDto;
 import com.Job_Portal.dto.UserDto;
 import com.Job_Portal.entity.User;
 import com.Job_Portal.jobPortalException.JobPortalException;
@@ -51,6 +52,23 @@ public class UserServiceImpl implements UserServices{
                 .password(userSave.getPassword())
                 .accountType(userSave.getAccountType())
                 .email(userSave.getEmail())
+                .build();
+    }
+
+    @Override
+    public UserDto loginUser(LoginDto loginDto) throws JobPortalException {
+        User user = userRepository.findByEmail(loginDto.getEmail()).orElseThrow(() -> new JobPortalException("USER_NOT-FOUND"));
+
+        if (!passwordEncoder.matches( loginDto.getPassword(), user.getPassword())){
+            throw  new JobPortalException("INVALID_CREDENTIALS");
+        }
+
+        return UserDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .accountType(user.getAccountType())
                 .build();
     }
 }
