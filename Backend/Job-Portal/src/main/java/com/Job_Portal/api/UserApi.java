@@ -22,7 +22,8 @@ public class UserApi {
     private UserServices userServices;
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerUser(@RequestBody @Valid UserDto userDto){
+    public ResponseEntity<UserDto> registerUser(@RequestBody @Valid UserDto userDto) throws Exception {
+
 
         userDto = userServices.register(userDto);
 

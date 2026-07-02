@@ -17,8 +17,9 @@ import org.springframework.data.mongodb.core.index.Indexed;
 public class UserDto {
 
 
-    private String id;
+    private Long id;
     @NotBlank(message ="Name in null or blank")
+
     private String name;
 
     @NotBlank(message ="Email in null or blank")
