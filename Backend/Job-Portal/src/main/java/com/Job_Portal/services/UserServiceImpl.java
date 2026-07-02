@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service(value = "userServices")
 public class UserServiceImpl implements UserServices{
 
@@ -21,6 +23,11 @@ public class UserServiceImpl implements UserServices{
 
     @Override
     public UserDto register(UserDto userDto) throws Exception {
+
+        Optional<User> optional = userRepository.findByEmail(userDto.getEmail());
+        if (optional.isPresent()){
+            throw  new JobPortalException("USER_FOUND");
+        }
 
         userDto.setId(Utilities.getNextSequence("users"));
 
