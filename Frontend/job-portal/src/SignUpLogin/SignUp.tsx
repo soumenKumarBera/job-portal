@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { Radio, Group } from "@mantine/core";
 import { useState } from "react";
 import { registerUser } from "../Servicess/UserServices";
+import { SignupValidation } from "../Servicess/FormValidetion";
 
 const form = {
   name: "",
@@ -22,13 +23,22 @@ const form = {
 const SignUp = () => {
 
   const [data, setData] = useState(form);
+  const [formError, setFormError] = useState(form);
+
+  
   const handelChange = (event: any) => {
     
 
     if (typeof event === "string") {
       setData({ ...data, accountType: event });
+
     } else {
-      setData({ ...data, [event.target.name]: event.target.value });
+      let name = event.target.name,
+        value = event.target.value;
+      setData({ ...data, [name]: value });
+      setFormError({ ...formError, [name]: SignupValidation(name, value) });
+
+
     }
   };
   const handelSubmit = () => {
@@ -45,6 +55,7 @@ const SignUp = () => {
     <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
       <div className="text-2xl font-sem">Create Account</div>
       <TextInput
+      error={formError.name}
         withAsterisk
         label="Full Name"
         placeholder="Your Name"
@@ -53,6 +64,7 @@ const SignUp = () => {
         name="name"
       />
       <TextInput
+        error={formError.email}
         withAsterisk
         leftSection={<AtIcon size={16} />}
         label="Your email"
@@ -62,6 +74,7 @@ const SignUp = () => {
         name="email"
       />
       <PasswordInput
+        error={formError.password}
         leftSection={<LockIcon size={18} />}
         label="Password"
         withAsterisk
@@ -71,6 +84,7 @@ const SignUp = () => {
         name="password"
       />
       <PasswordInput
+        error={formError.confirmPassword}
         leftSection={<LockIcon size={18} />}
         label="Confirm-Password"
         withAsterisk
