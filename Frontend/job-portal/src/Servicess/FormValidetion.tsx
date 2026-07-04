@@ -1,9 +1,10 @@
-const SignupValidation = (data: string, value: string) => {
+const SignupValidation =(data:string, value:string) =>{
+
   switch (data) {
     case "name":
       if (value.length == 0) {
         return "Name is required";
-      } else {
+      }else{
         return "";
       }
 
@@ -12,26 +13,27 @@ const SignupValidation = (data: string, value: string) => {
         return "Email is required";
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
         return "Invalid email address";
-      } else {
+      }else{
         return "";
       }
 
     case "password":
       if (value.length == 0) {
         return "Password is required";
-      } else if (
-        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/.test(
-          value,
-        )
-      ) {
+      } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/.test(value)) {
         return "Password must contain uppercase, lowercase, number, special character and be 8-15 characters long";
-      } else {
+      }else{
         return "";
       }
 
-    default:
-      return "";
+      default:
+        return "";
   }
-};
 
-export { SignupValidation };
+ 
+
+
+
+}
+
+ export  {SignupValidation};

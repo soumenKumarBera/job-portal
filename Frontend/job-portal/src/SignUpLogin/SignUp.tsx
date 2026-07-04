@@ -38,6 +38,27 @@ const SignUp = () => {
       setData({ ...data, [name]: value });
       setFormError({ ...formError, [name]: SignupValidation(name, value) });
 
+      if(name === "password" && data.confirmPassword!== ""){
+        let err ="";
+        if(data.confirmPassword !== value){
+          err = "Confirm Password do not match.";
+           setFormError({ ...formError, [name]: SignupValidation(name, value), confirmPassword: err });
+          
+        }  
+       
+          
+        
+      }
+      if(name === "confirmPassword"){
+        if(data.password !== value){
+          setFormError({ ...formError, [name]: "Confirm Password do not match." });
+
+        }else{
+          setFormError({ ...formError, [name]: "" });
+        }
+
+      }
+
 
     }
   };
