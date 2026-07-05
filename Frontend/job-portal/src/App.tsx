@@ -24,7 +24,9 @@ import "@mantine/dates/styles.css";
 import JobHistoryPage from "./Pages/JobHistoryPage";
 import SignUpPage from "./Pages/SignUpPage";
 import ProfilePage from "./Pages/ProfilePage";
-
+// @ts-ignore: side-effect CSS import has no type declarations
+import "@mantine/notifications/styles.css";
+import { Notifications } from "@mantine/notifications";
 // ‼️ import dates styles after core package styles
 
 // import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
@@ -66,6 +68,7 @@ function App() {
 
   return (
     <MantineProvider defaultColorScheme="dark" theme={theme}>
+       <Notifications position="top-center" zIndex={1000}/>
       <BrowserRouter>
         <div className=" relative">
           <Header />
@@ -83,7 +86,6 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/login" element={<SignUpPage />} />
             <Route path="/signup" element={<SignUpPage />} />
-        
 
             <Route path="/*" element={<HomePage />} />
           </Routes>
