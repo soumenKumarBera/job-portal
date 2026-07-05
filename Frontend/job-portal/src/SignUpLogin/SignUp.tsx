@@ -6,7 +6,7 @@ import {
   Button,
 } from "@mantine/core";
 import { AtIcon, LockIcon } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Radio, Group } from "@mantine/core";
 import { useState } from "react";
 import { registerUser } from "../Servicess/UserServices";
@@ -25,6 +25,8 @@ const form = {
 const SignUp = () => {
   const [data, setData] = useState<{ [key: string]: string }>(form);
   const [formError, setFormError] = useState<{ [key: string]: string }>(form);
+const navigate = useNavigate();
+
   if (data.accountType === "") {
     setData({ ...data, accountType: "APPLICANT" });
   }
@@ -97,6 +99,11 @@ const SignUp = () => {
           withBorder: true,
           className: '!border-green-500',
         })
+
+        setTimeout(() => {
+          navigate('/login');
+        }, 4000);
+        setData(form);
       })
       .catch((error) => {
        
@@ -188,10 +195,12 @@ const SignUp = () => {
       </Button>
       <div className="mx-auto">
         Have an account?{" "}
-        <Link to="/login" className="text-bright-sun-400 hover:underline">
+        <span onClick={() => {navigate("/login"); setFormError(form); setData(form)}} className="text-bright-sun-400 hover:underline cursor-pointer">
           Login
-        </Link>
+        </span>
+        
       </div>
+      
     </div>
   );
 };
