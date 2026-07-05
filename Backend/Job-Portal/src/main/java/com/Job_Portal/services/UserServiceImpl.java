@@ -37,9 +37,7 @@ public class UserServiceImpl implements UserServices{
                 .id(userDto.getId())
                 .name(userDto.getName())
                 .email(userDto.getEmail())
-                .accountType( userDto.getAccountType() != null
-                        ? userDto.getAccountType()
-                        : AccountType.EMPLOYER)
+                .accountType( userDto.getAccountType())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .build();
         //user save in database

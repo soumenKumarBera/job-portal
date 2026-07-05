@@ -21,48 +21,68 @@ const form = {
 };
 
 const SignUp = () => {
-
-  const [data, setData] = useState(form);
-  const [formError, setFormError] = useState(form);
-
-  
+  const [data, setData] = useState<{ [key: string]: string }>(form);
+  const [formError, setFormError] = useState<{ [key: string]: string }>(form);
+  if (data.accountType === "") {
+    setData({ ...data, accountType: "APPLICANT" });
+  }
   const handelChange = (event: any) => {
-    
-
     if (typeof event === "string") {
       setData({ ...data, accountType: event });
-
     } else {
       let name = event.target.name,
         value = event.target.value;
       setData({ ...data, [name]: value });
       setFormError({ ...formError, [name]: SignupValidation(name, value) });
 
-      if(name === "password" && data.confirmPassword!== ""){
-        let err ="";
-        if(data.confirmPassword !== value){
+      if (name === "password" && data.confirmPassword !== "") {
+        let err = "";
+        if (data.confirmPassword !== value) {
           err = "Confirm Password do not match.";
-           setFormError({ ...formError, [name]: SignupValidation(name, value), confirmPassword: err });
-          
-        }  
-       
-          
-        
+          setFormError({
+            ...formError,
+            [name]: SignupValidation(name, value),
+            confirmPassword: err,
+          });
+        }
       }
-      if(name === "confirmPassword"){
-        if(data.password !== value){
-          setFormError({ ...formError, [name]: "Confirm Password do not match." });
-
-        }else{
+      if (name === "confirmPassword") {
+        if (data.password !== value) {
+          setFormError({
+            ...formError,
+            [name]: "Confirm Password do not match.",
+          });
+        } else {
           setFormError({ ...formError, [name]: "" });
         }
-
       }
-
-
     }
   };
   const handelSubmit = () => {
+    let valid = true,
+      newFormError: { [key: string]: string } = {};
+
+    for (let key in data) {
+      if (key === "accountType") continue; //value
+      if (key !== "confirmPassword"){
+
+        newFormError[key] = SignupValidation(key, data[key]);
+      }else if(data[key] !== data["password"]){
+        newFormError[key] = "Passwords do not match.";
+
+      }
+
+      if (newFormError[key]) {
+        valid = false;
+      }
+    }
+
+    if (!valid) {
+      setFormError(newFormError);
+      return;
+
+    }
+
     registerUser(data)
       .then((response) => {
         console.log(response);
@@ -76,7 +96,7 @@ const SignUp = () => {
     <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
       <div className="text-2xl font-sem">Create Account</div>
       <TextInput
-      error={formError.name}
+        error={formError.name}
         withAsterisk
         label="Full Name"
         placeholder="Your Name"
