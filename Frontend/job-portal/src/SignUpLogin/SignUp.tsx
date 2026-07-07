@@ -20,6 +20,7 @@ const form = {
   password: "",
   confirmPassword: "",
   accountType: "",
+  terms: "",
 };
 
 const SignUp = () => {
@@ -82,6 +83,11 @@ const SignUp = () => {
     if (!valid) {
       setFormError(newFormError);
       return;
+    }
+    if (!data.terms) {
+      newFormError.terms = "Please accept Terms & Conditions.";
+      valid = false;
+      return setFormError(newFormError);
     }
 
     registerUser(data)
@@ -182,6 +188,15 @@ const SignUp = () => {
       </Radio.Group>
       <Checkbox
         autoContrast
+        name="terms"
+        checked={data.terms}
+        onChange={(event) => {
+          setData({ ...data, terms: event.currentTarget.checked });
+          if (event.currentTarget.checked) {
+            setFormError({ ...formError, terms: "" });
+          }
+        }}
+        error={formError.terms}
         label={
           <>
             I accept <Anchor>terms & condition </Anchor>
