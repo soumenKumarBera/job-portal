@@ -20,10 +20,11 @@ const form = {
   password: "",
   confirmPassword: "",
   accountType: "",
+    
 };
 
 const SignUp = () => {
-  const [data, setData] = useState<{ [key: string]: string }>(form);
+  const [data, setData] = useState<{ [key: string]: any }>(form);
   const [formError, setFormError] = useState<{ [key: string]: string }>(form);
 const navigate = useNavigate();
 

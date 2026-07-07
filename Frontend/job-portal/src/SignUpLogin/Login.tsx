@@ -7,16 +7,22 @@ import {
 } from "@mantine/core";
 import { AtIcon, LockIcon } from "@phosphor-icons/react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../Servicess/UserServices";
+import { LoginValidation } from "../Servicess/FormValidetion";
 
-const from = {
+const form = {
   email: "",
   password: "",
 };
 
 const Login = () => {
-  const [data, setData] = useState(from);
+  const [data, setData] = useState<{[key: string]: string}>(form);
+  const [formError, setFormError] = useState<{ [key: string]: string }>(form);
+  const navigate = useNavigate();
+
+
+
   const handelChange = (event: any) => {
   
 
@@ -24,6 +30,22 @@ const Login = () => {
   };
 
   const handelSubmit = () => {
+ let valid = true,
+      newFormError: { [key: string]: string } = {};
+
+    for (let key in data) {
+        newFormError[key] = LoginValidation(key, data[key]);
+      if(newFormError[key]) {
+        valid = false;
+
+      }
+
+     
+    }
+
+      setFormError(newFormError);
+     
+
     loginUser(data)
       .then((response) => {
         console.log(response);
@@ -44,6 +66,7 @@ const Login = () => {
         value={data.email}
         onChange={handelChange}
         name="email"
+        error = {formError.email}
       />
       <PasswordInput
         leftSection={<LockIcon size={18} />}
@@ -53,6 +76,7 @@ const Login = () => {
         value={data.password}
         onChange={handelChange}
         name="password"
+        error = {formError.password}
       />
 
       <Button autoContrast variant="filled" onClick={handelSubmit}>
