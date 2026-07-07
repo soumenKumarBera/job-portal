@@ -11,7 +11,7 @@ import { Radio, Group } from "@mantine/core";
 import { useState } from "react";
 import { registerUser } from "../Servicess/UserServices";
 import { SignupValidation } from "../Servicess/FormValidetion";
-import { notifications } from '@mantine/notifications';
+import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
 const form = {
@@ -20,13 +20,12 @@ const form = {
   password: "",
   confirmPassword: "",
   accountType: "",
-    
 };
 
 const SignUp = () => {
   const [data, setData] = useState<{ [key: string]: any }>(form);
   const [formError, setFormError] = useState<{ [key: string]: string }>(form);
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   if (data.accountType === "") {
     setData({ ...data, accountType: "APPLICANT" });
@@ -69,12 +68,10 @@ const navigate = useNavigate();
 
     for (let key in data) {
       if (key === "accountType") continue; //value
-      if (key !== "confirmPassword"){
-
+      if (key !== "confirmPassword") {
         newFormError[key] = SignupValidation(key, data[key]);
-      }else if(data[key] !== data["password"]){
+      } else if (data[key] !== data["password"]) {
         newFormError[key] = "Passwords do not match.";
-
       }
 
       if (newFormError[key]) {
@@ -85,38 +82,38 @@ const navigate = useNavigate();
     if (!valid) {
       setFormError(newFormError);
       return;
-
     }
 
     registerUser(data)
       .then((response) => {
         console.log(response);
         notifications.show({
-          title: 'Registration Successful',
-          message: 'Redirecting to login page...',
-            withCloseButton: true,
-          icon:<IconCheck size={18} />,
-          color: 'teal',
+          title: "Registration Successful",
+          message: "Redirecting to login page...",
+          withCloseButton: true,
+          icon: <IconCheck size={18} />,
+          color: "teal",
           withBorder: true,
-          className: '!border-green-500',
-        })
+          className: "!border-green-500",
+        });
 
         setTimeout(() => {
-          navigate('/login');
+          navigate("/login");
         }, 4000);
         setData(form);
       })
       .catch((error) => {
-       
-           notifications.show({
-          title: 'Registration Failed',
-          message: error.response.data.errorMessage || 'An error occurred during registration.',
+        notifications.show({
+          title: "Registration Failed",
+          message:
+            error.response.data.errorMessage ||
+            "An error occurred during registration.",
           withCloseButton: true,
-          icon:<IconX size={18} />,
-          color: 'red',
+          icon: <IconX size={18} />,
+          color: "red",
           withBorder: true,
-          className: '!border-red-500',
-        })
+          className: "!border-red-500",
+        });
       });
   };
 
@@ -196,12 +193,17 @@ const navigate = useNavigate();
       </Button>
       <div className="mx-auto">
         Have an account?{" "}
-        <span onClick={() => {navigate("/login"); setFormError(form); setData(form)}} className="text-bright-sun-400 hover:underline cursor-pointer">
+        <span
+          onClick={() => {
+            navigate("/login");
+            setFormError(form);
+            setData(form);
+          }}
+          className="text-bright-sun-400 hover:underline cursor-pointer"
+        >
           Login
         </span>
-        
       </div>
-      
     </div>
   );
 };
