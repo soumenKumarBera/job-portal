@@ -1,6 +1,7 @@
 package com.Job_Portal.api;
 
 import com.Job_Portal.dto.LoginDto;
+import com.Job_Portal.dto.ResponseDto;
 import com.Job_Portal.dto.UserDto;
 import com.Job_Portal.entity.User;
 import com.Job_Portal.repositry.UserRepository;
@@ -35,4 +36,15 @@ public class UserApi {
         return new ResponseEntity<>(userServices.loginUser(loginDto), HttpStatus.OK);
 
     }
+
+    @PostMapping("/sendOtp/{email}")
+    public ResponseEntity<ResponseDto> senOtp(@PathVariable String email) throws Exception {
+
+        userServices.SendOtp(email);
+
+        return new ResponseEntity<>(new ResponseDto("OTP sent Successfully"), HttpStatus.OK);
+
+    }
+
+
 }
