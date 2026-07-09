@@ -17,10 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service(value = "userServices")
@@ -130,5 +132,19 @@ public class UserServiceImpl implements UserServices{
         user.setPassword(passwordEncoder.encode(loginDto.getPassword()));
         userRepository.save(user);
         return new ResponseDto("Password change Successfully...");
+    }
+
+    @Scheduled(fixedRate = 3000)
+    public void removeExpiredOTPs(){
+        LocalDateTime expired = LocalDateTime.now().minusMinutes(5);
+        List<OTP> otp = otpRepository.findByCreationTimeBefore(expired);
+
+        if (!otp.isEmpty()){
+            otpRepository.deleteAll(otp);
+            System.out.println(expired);
+
+        }
+
+
     }
 }
