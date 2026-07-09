@@ -4,6 +4,7 @@ import com.Job_Portal.dto.LoginDto;
 import com.Job_Portal.dto.ResponseDto;
 import com.Job_Portal.dto.UserDto;
 import com.Job_Portal.entity.User;
+import com.Job_Portal.jobPortalException.JobPortalException;
 import com.Job_Portal.repositry.UserRepository;
 import com.Job_Portal.services.UserServiceImpl;
 import com.Job_Portal.services.UserServices;
@@ -46,5 +47,13 @@ public class UserApi {
 
     }
 
+    @GetMapping("/verifyOtp/{email}/{otp}")
+    public ResponseEntity<ResponseDto> verifyOtp(@PathVariable String email, @PathVariable String otp) throws JobPortalException {
+
+        userServices.verifyOtp(email, otp);
+
+        return new ResponseEntity<>(new ResponseDto("OTP is Verified"), HttpStatus.OK);
+
+    }
 
 }
