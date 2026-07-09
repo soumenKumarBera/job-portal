@@ -58,4 +58,11 @@ public class UserApi {
 
     }
 
+    @PostMapping("/changePass")
+    public ResponseEntity<ResponseDto> changePassword(@RequestBody @Valid LoginDto loginDto) throws Exception {
+
+        return new ResponseEntity<>(userServices.changePassword(loginDto), HttpStatus.OK);
+
+    }
+
 }

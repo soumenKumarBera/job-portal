@@ -2,6 +2,7 @@ package com.Job_Portal.services;
 
 import com.Job_Portal.dto.AccountType;
 import com.Job_Portal.dto.LoginDto;
+import com.Job_Portal.dto.ResponseDto;
 import com.Job_Portal.dto.UserDto;
 import com.Job_Portal.entity.OTP;
 import com.Job_Portal.entity.User;
@@ -120,5 +121,14 @@ public class UserServiceImpl implements UserServices{
         }
 
         return true;
+    }
+
+    @Override
+    public ResponseDto changePassword(LoginDto loginDto) throws JobPortalException {
+        User user =  userRepository.findByEmail(loginDto.getEmail()).orElseThrow(() -> new JobPortalException("USER_NOT-FOUND"));
+
+        user.setPassword(passwordEncoder.encode(loginDto.getPassword()));
+        userRepository.save(user);
+        return new ResponseDto("Password change Successfully...");
     }
 }

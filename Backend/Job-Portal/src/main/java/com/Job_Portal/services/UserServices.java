@@ -1,6 +1,7 @@
 package com.Job_Portal.services;
 
 import com.Job_Portal.dto.LoginDto;
+import com.Job_Portal.dto.ResponseDto;
 import com.Job_Portal.dto.UserDto;
 import com.Job_Portal.jobPortalException.JobPortalException;
 import jakarta.mail.MessagingException;
@@ -14,4 +15,6 @@ public interface UserServices {
     boolean SendOtp(String email) throws Exception;
 
     boolean verifyOtp(String email, String otp) throws JobPortalException;
+
+    ResponseDto changePassword( LoginDto loginDto)throws JobPortalException;
 }
