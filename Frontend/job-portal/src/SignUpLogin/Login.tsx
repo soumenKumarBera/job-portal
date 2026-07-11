@@ -12,6 +12,9 @@ import { loginUser } from "../Servicess/UserServices";
 import { LoginValidation } from "../Servicess/FormValidetion";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import { useDisclosure } from '@mantine/hooks';
+import ResertPassword from "./ResertPassword";
+
 
 const form = {
   email: "",
@@ -22,6 +25,7 @@ const Login = () => {
   const [data, setData] = useState<{ [key: string]: string }>(form);
   const [formError, setFormError] = useState<{ [key: string]: string }>(form);
   const navigate = useNavigate();
+   const [opened, { open, close }] = useDisclosure(false);
 
   const handelChange = (event: any) => {
     setFormError({ ...formError, [event.target.name]: "" });
@@ -72,7 +76,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+   <> <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
       <div className="text-2xl font-sem">Login</div>
       <TextInput
         withAsterisk
@@ -111,7 +115,15 @@ const Login = () => {
           Sign-up
         </span>
       </div>
+
+          <div onClick={open} className="mx-auto text-bright-sun-400 hover:underline cursor-pointer">
+           Forget Password 
+          </div>
+
     </div>
+
+    <ResertPassword opened={opened} close={close} />
+    </>
   );
 };
 

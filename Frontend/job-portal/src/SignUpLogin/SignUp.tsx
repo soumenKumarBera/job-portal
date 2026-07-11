@@ -11,8 +11,9 @@ import { Radio, Group } from "@mantine/core";
 import { useState } from "react";
 import { registerUser } from "../Servicess/UserServices";
 import { SignupValidation } from "../Servicess/FormValidetion";
-import { notifications } from "@mantine/notifications";
+
 import { IconCheck, IconX } from "@tabler/icons-react";
+import { errorNotification, successNotification } from "../Servicess/NotificationService";
 
 const form = {
   name: "",
@@ -93,33 +94,16 @@ const SignUp = () => {
     registerUser(data)
       .then((response) => {
         console.log(response);
-        notifications.show({
-          title: "Registration Successful",
-          message: "Redirecting to login page...",
-          withCloseButton: true,
-          icon: <IconCheck size={18} />,
-          color: "teal",
-          withBorder: true,
-          className: "!border-green-500",
-        });
-
+        successNotification("Registration Successful", "Redirecting to login page...");
         setTimeout(() => {
           navigate("/login");
         }, 4000);
         setData(form);
       })
       .catch((error) => {
-        notifications.show({
-          title: "Registration Failed",
-          message:
-            error.response.data.errorMessage ||
-            "An error occurred during registration.",
-          withCloseButton: true,
-          icon: <IconX size={18} />,
-          color: "red",
-          withBorder: true,
-          className: "!border-red-500",
-        });
+
+        errorNotification("Registration Failed",error.response.data.errorMessage )
+        
       });
   };
 
