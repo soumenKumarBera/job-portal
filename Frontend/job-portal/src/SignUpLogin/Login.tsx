@@ -122,7 +122,7 @@ const Login = () => {
 
     </div>
 
-    <ResertPassword opened={opened} close={close} />
+    <ResertPassword opened={opened} close={close}  />
     </>
   );
 };

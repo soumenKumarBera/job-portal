@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from "@mantine/core";
 import { AtIcon, LockIcon } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { changePass, sendOtp, verifyOtp } from "../Servicess/UserServices";
 import { SignupValidation } from "../Servicess/FormValidetion";
 import {
@@ -88,6 +88,7 @@ const ResertPassword = (props: any) => {
   };
 
   const resendOtp = () => {
+    if(resendinLodeing) return;
     handleSendOtp();
   };
 
@@ -95,6 +96,9 @@ const ResertPassword = (props: any) => {
     setOtpSent(false);
     setEmail("");
   };
+
+
+
 
   const handelResetPassword = () => {
     changePass(email, password)
@@ -111,7 +115,8 @@ const ResertPassword = (props: any) => {
   };
 
   return (
-    <Modal opened={props.opened} onClose={props.close} title="Reset Password">
+    <Modal opened={props.opened } onClose={props.close}  title="Reset Password">
+      
       <div className="flex flex-col gap-6">
         <TextInput
           size="md"
