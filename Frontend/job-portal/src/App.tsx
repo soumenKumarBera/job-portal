@@ -1,7 +1,6 @@
 import { createTheme, MantineProvider } from "@mantine/core";
 
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
+
 // @ts-ignore: side-effect CSS import has no type declarations
 import "@mantine/core/styles.css";
 // @ts-ignore: side-effect CSS import has no type declarations
@@ -29,6 +28,7 @@ import "@mantine/notifications/styles.css";
 import { Notifications } from "@mantine/notifications";
 import { Provider } from "react-redux";
 import Store from "./Store";
+import AppRoutes from "./Pages/AppRoutes";
 // ‼️ import dates styles after core package styles
 
 // import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
@@ -72,29 +72,8 @@ function App() {
     <Provider store={Store}>
       <MantineProvider defaultColorScheme="dark" theme={theme}>
         <Notifications position="top-center" zIndex={1000} />
-        <BrowserRouter>
-          <div className=" relative">
-            <Header />
-            <Routes>
-              <Route path="/find-jobs" element={<FindJobsPage />} />
-              <Route path="/find-talent" element={<FindTalentPage />} />
-              <Route path="/jobs" element={<JobdescPage />} />
-
-              <Route path="/talent-profile" element={<TalentPrifilePage />} />
-              <Route path="/post-job" element={<PostJobPage />} />
-              <Route path="/apply-job" element={<ApplyJobPage />} />
-              <Route path="/company" element={<CompanyPage />} />
-              <Route path="/posted-job" element={<PostedJobPage />} />
-              <Route path="/job-history" element={<JobHistoryPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/login" element={<SignUpPage />} />
-              <Route path="/signup" element={<SignUpPage />} />
-
-              <Route path="/*" element={<HomePage />} />
-            </Routes>
-            <Footer />
-          </div>
-        </BrowserRouter>
+        <AppRoutes />
+       
       </MantineProvider>
     </Provider>
   );
