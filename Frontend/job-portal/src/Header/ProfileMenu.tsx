@@ -16,16 +16,24 @@ import {
   IconUserCircle,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeUser } from "../Slices/UserSlice";
 
 const ProfileMenu = () => {
+  const user = useSelector((state: any )=> state.user);
+  const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
   const [opened, setOpened] = useState(false);
+
+  const handelLogout = () => {
+    dispatch(removeUser());
+  };
   return (
     <Menu shadow="md" width={200} opened={opened} onChange={setOpened}>
       <Menu.Target>
         <div className="flex gap-2 items-center cursor-pointer">
-          <div>Soumen</div>
+          <div>{user.name}</div>
           <Avatar src="avatar.png" alt="it's me" />
         </div>
       </Menu.Target>
@@ -62,7 +70,11 @@ const ProfileMenu = () => {
 
         <Menu.Divider />
 
-        <Menu.Item color="red" leftSection={<IconLogout2 size={14} />}>
+        <Menu.Item
+          color="red"
+          leftSection={<IconLogout2 size={14} />}
+          onClick={handelLogout}
+        >
           Logout
         </Menu.Item>
       </Menu.Dropdown>
