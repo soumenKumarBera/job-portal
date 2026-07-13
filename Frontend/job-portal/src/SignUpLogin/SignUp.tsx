@@ -4,6 +4,7 @@ import {
   Checkbox,
   Anchor,
   Button,
+  LoadingOverlay,
 } from "@mantine/core";
 import { AtIcon, LockIcon } from "@phosphor-icons/react";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,6 +26,7 @@ const form = {
 };
 
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<{ [key: string]: any }>(form);
   const [formError, setFormError] = useState<{ [key: string]: string }>(form);
   const navigate = useNavigate();
@@ -90,12 +92,14 @@ const SignUp = () => {
       valid = false;
       return setFormError(newFormError);
     }
+      setLoading(true)
 
     registerUser(data)
       .then((response) => {
         console.log(response);
         successNotification("Registration Successful", "Redirecting to login page...");
         setTimeout(() => {
+          setLoading(false);
           navigate("/login");
         }, 4000);
         setData(form);
@@ -103,11 +107,18 @@ const SignUp = () => {
       .catch((error) => {
 
         errorNotification("Registration Failed",error.response.data.errorMessage )
-        
+         setLoading(false);
       });
   };
 
   return (
+    <>  <LoadingOverlay
+          visible={loading}
+          zIndex={1000}
+          className="translate-x-1/2"
+          overlayProps={{ radius: 'sm', blur: 2 }}
+          loaderProps={{ color: 'pink', type: 'bars' }}
+        />
     <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
       <div className="text-2xl font-sem">Create Account</div>
       <TextInput
@@ -187,7 +198,7 @@ const SignUp = () => {
           </>
         }
       />
-      <Button onClick={handelSubmit} autoContrast variant="filled">
+      <Button onClick={handelSubmit} loading = {loading} autoContrast variant="filled">
         SignUp
       </Button>
       <div className="mx-auto">
@@ -204,6 +215,7 @@ const SignUp = () => {
         </span>
       </div>
     </div>
+    </>
   );
 };
 
