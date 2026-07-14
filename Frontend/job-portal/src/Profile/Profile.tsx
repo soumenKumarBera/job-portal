@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   IconBraces,
   IconBriefcase,
@@ -17,8 +17,16 @@ import fields from "../Data/Profile";
 import { Textarea, TagsInput } from "@mantine/core";
 import ExpInput from "./ExpInput";
 import CertInput from "./CertInput";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../Servicess/ProfileService";
+import Info from "./Info";
+import { setPriority } from "os";
+import { profileAction } from "../Slices/ProfileSlice";
 
 const Profile = (props: any) => {
+   const user = useSelector((state: any) => state.user);
+    const profile = useSelector((state:any) => state.profile);
+
   const skills = [
     "React",
     "SpringBoot",
@@ -40,7 +48,7 @@ const Profile = (props: any) => {
   const [textInput, setTextInput] = useState(props.about);
   const [skill, setSkill] = useState(skills);
   const [addExp, setAddExp] = useState(false);
-   const [addCert, setAddCert] = useState(false);
+  const [addCert, setAddCert] = useState(false);
 
   const [edit, setEdit] = useState([false, false, false, false, false]);
   const handelEdit = (index: any) => {
@@ -48,6 +56,27 @@ const Profile = (props: any) => {
     newEdit[index] = !newEdit[index];
     setEdit(newEdit);
   };
+
+ 
+ 
+  const dispatch = useDispatch();
+      
+
+  useEffect(() => {
+
+    console.log(profile)
+    
+
+    getProfile(user.id)
+      .then((res:any) => {
+        dispatch(profileAction.setProfile(res))
+        
+        console.log(res);
+      })
+      .catch((err:any) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="w-4/5 pb-10 mx-auto">
@@ -60,42 +89,7 @@ const Profile = (props: any) => {
         />
       </div>
       <div className="px-3 mt-25">
-        <div className="text-3xl font-semibold flex justify-between mt-20 ">
-          {props.name}
-
-          <ActionIcon
-            aria-label="Settings"
-            size="lg"
-            onClick={() => handelEdit(0)}
-          >
-            {edit[0] ? (
-              <IconDeviceFloppy className="h-4/5 w-4/5 " />
-            ) : (
-              <IconPencil className="h-4/5 w-4/5 " />
-            )}
-          </ActionIcon>
-        </div>
-
-        {edit[0] ? (
-          <>
-            <div className="flex gap-10 [&>*]:w-1/2">
-              <SelectInput {...select[0]} />
-              <SelectInput {...select[1]} />
-            </div>
-            <SelectInput {...select[2]} />
-          </>
-        ) : (
-          <>
-            <div className="text-xl flex gap-1 items-center  ">
-              {" "}
-              <IconBriefcase className="h-5 w-5 " stroke={1.5} /> {props.role}
-              &bull; {props.company}
-            </div>
-            <div className="flex items-center gap-1 text-mine-shaft-300">
-              <IconMapPin className="size-5" stroke={1.5} /> {props.location}
-            </div>
-          </>
-        )}
+        <Info {...props}/>
       </div>
 
       <Divider mx="xs" my="xl" />
@@ -126,7 +120,7 @@ const Profile = (props: any) => {
           />
         ) : (
           <div className="text-sm text-mine-shaft-300 text-justify">
-            {props.about}
+            {profile.about}
           </div>
         )}
       </div>
@@ -161,7 +155,7 @@ const Profile = (props: any) => {
             <div className="bg-bright-sun-300 bg-opacity-15 rounded-3xl text-bright-sun-400 px-3 py-1 text-sm font-medium">
               React
             </div>
-            {skills.map((skill: any, index: any) => (
+            {profile.skills?.map((skill: any, index: number) => (
               <div
                 key={index}
                 className="bg-bright-sun-300 bg-opacity-15 rounded-3xl text-bright-sun-400 px-3 py-1 text-sm font-medium"
@@ -203,7 +197,7 @@ const Profile = (props: any) => {
         </div>
 
         <div className="flex flex-col gap-8">
-          {props.experience.map((exp: any, index: any) => (
+          {profile.experiences?.map((exp: any, index: any) => (
             <ExpCard key={index} {...exp} edit={edit[3]} />
           ))}
 
@@ -216,7 +210,7 @@ const Profile = (props: any) => {
       <div className="px-3">
         <div className="text-2xl font-semibold mb-5 flex justify-between">
           Certicication
-         <div className=" flex gap-2">
+          <div className=" flex gap-2">
             <ActionIcon
               aria-label="Settings"
               size="lg"
@@ -241,14 +235,11 @@ const Profile = (props: any) => {
         </div>
 
         <div className="flex flex-col gap-8">
-          {props.certifications.map((cert: any, index: any) => (
+          {profile.certifications?.map((cert: any, index: any) => (
             <CertCard key={index} edit={edit[4]} {...cert} />
           ))}
 
-
-          {
-            addCert && <CertInput  setEdit = {setAddCert} />
-          }
+          {addCert && <CertInput setEdit={setAddCert} />}
         </div>
       </div>
     </div>
