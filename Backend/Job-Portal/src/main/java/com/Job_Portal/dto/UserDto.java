@@ -35,4 +35,5 @@ public class UserDto {
 
 
     private AccountType accountType;
+    private Long profileId;
 }

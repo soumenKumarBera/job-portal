@@ -40,6 +40,9 @@ public class UserServiceImpl implements UserServices{
     @Autowired
     private OtpRepository otpRepository;
 
+    @Autowired
+    private ProfileService profileService;
+
 
 
     @Override
@@ -51,6 +54,8 @@ public class UserServiceImpl implements UserServices{
         }
 
         userDto.setId(Utilities.getNextSequence("users"));
+
+        profileService.createProfile(userDto.getEmail());
 
 
         User user = User.builder()
