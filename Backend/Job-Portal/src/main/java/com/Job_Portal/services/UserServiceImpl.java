@@ -103,6 +103,7 @@ public class UserServiceImpl implements UserServices{
         OTP otp = new OTP(email, genOtp, LocalDateTime.now());
         otpRepository.save(otp);
         message.setText(Data.getMessageBody(otp.getOtpCode(), user.getName()), true);
+
             mailSender.send(mm);
 
 
