@@ -64,14 +64,14 @@ const Profile = (props: any) => {
 
   useEffect(() => {
 
-    console.log(profile)
+  
     
 
     getProfile(user.id)
       .then((res:any) => {
         dispatch(profileAction.setProfile(res))
         
-        console.log(res);
+        
       })
       .catch((err:any) => {
         console.log(err);
