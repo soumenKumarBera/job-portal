@@ -22,6 +22,7 @@ import { getProfile } from "../Servicess/ProfileService";
 import Info from "./Info";
 import { setPriority } from "os";
 import { profileAction } from "../Slices/ProfileSlice";
+import About from "./About";
 
 const Profile = (props: any) => {
    const user = useSelector((state: any) => state.user);
@@ -94,36 +95,7 @@ const Profile = (props: any) => {
 
       <Divider mx="xs" my="xl" />
 
-      <div className="px-3">
-        <div className="text-2xl font-semibold mb-3 flex justify-between">
-          About
-          <ActionIcon
-            aria-label="Settings"
-            size="lg"
-            onClick={() => handelEdit(1)}
-          >
-            {edit[1] ? (
-              <IconDeviceFloppy className="h-4/5 w-4/5 " />
-            ) : (
-              <IconPencil className="h-4/5 w-4/5 " />
-            )}
-          </ActionIcon>
-        </div>
-
-        {edit[1] ? (
-          <Textarea
-            value={textInput}
-            onChange={(e) => setTextInput(e.currentTarget.value)}
-            autosize
-            minRows={2}
-            placeholder="Enter about yoursself..."
-          />
-        ) : (
-          <div className="text-sm text-mine-shaft-300 text-justify">
-            {profile.about}
-          </div>
-        )}
-      </div>
+      <About />
 
       <Divider mx="xs" my="xl" />
 
