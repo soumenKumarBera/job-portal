@@ -23,6 +23,7 @@ import Info from "./Info";
 import { setPriority } from "os";
 import { profileAction } from "../Slices/ProfileSlice";
 import About from "./About";
+import Skills from "./Skills";
 
 const Profile = (props: any) => {
    const user = useSelector((state: any) => state.user);
@@ -46,7 +47,7 @@ const Profile = (props: any) => {
     "AWS",
   ];
   const select = fields;
-  const [textInput, setTextInput] = useState(props.about);
+
   const [skill, setSkill] = useState(skills);
   const [addExp, setAddExp] = useState(false);
   const [addCert, setAddCert] = useState(false);
@@ -99,45 +100,7 @@ const Profile = (props: any) => {
 
       <Divider mx="xs" my="xl" />
 
-      <div className="px-3">
-        <div className="text-2xl font-semibold mb-3 flex justify-between">
-          Skill
-          <ActionIcon
-            aria-label="Settings"
-            size="lg"
-            onClick={() => handelEdit(2)}
-          >
-            {edit[2] ? (
-              <IconDeviceFloppy className="h-4/5 w-4/5 " />
-            ) : (
-              <IconPencil className="h-4/5 w-4/5 " />
-            )}
-          </ActionIcon>
-        </div>
-
-        {edit[2] ? (
-          <TagsInput
-            value={skill}
-            onChange={setSkill}
-            placeholder="Add Skill"
-            splitChars={[",", " ", "|"]}
-          />
-        ) : (
-          <div className=" flex gap-2 flex-wrap">
-            <div className="bg-bright-sun-300 bg-opacity-15 rounded-3xl text-bright-sun-400 px-3 py-1 text-sm font-medium">
-              React
-            </div>
-            {profile.skills?.map((skill: any, index: number) => (
-              <div
-                key={index}
-                className="bg-bright-sun-300 bg-opacity-15 rounded-3xl text-bright-sun-400 px-3 py-1 text-sm font-medium"
-              >
-                {skill}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      <Skills />
 
       <Divider mx="xs" my="xl" />
 
