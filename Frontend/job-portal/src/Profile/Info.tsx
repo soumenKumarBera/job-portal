@@ -12,6 +12,7 @@ import { useForm } from "@mantine/form";
 import { useDispatch, useSelector } from "react-redux";
 import { profileAction } from "../Slices/ProfileSlice";
 import { updateProfile } from "../Servicess/ProfileService";
+import { error } from "console";
 
 const Info = (props: any) => {
   const select = fields;
@@ -37,10 +38,17 @@ const Info = (props: any) => {
       setEdit(false);
 
       let update = { ...profile, ...form.getValues() };
+      updateProfile(update)
+      .then((res) => {
+     
+         dispatch(profileAction.changeProfile(res));
+      })
+      .catch((error) =>{
+          console.log(error)
+      })
       
-
       
-      dispatch(profileAction.changeProfile(update));
+      
     }
   };
 
