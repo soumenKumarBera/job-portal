@@ -34,4 +34,4 @@ build/
 
 
 
-!src/main/resources/Validation.properties
+src/main/resources/Validation.properties
