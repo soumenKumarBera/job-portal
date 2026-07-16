@@ -31,5 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
-###select this###
-application.properties
+
+src/main/resources/Validation.properties
