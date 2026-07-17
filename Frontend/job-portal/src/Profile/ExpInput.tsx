@@ -6,7 +6,8 @@ import { useState } from "react";
 import { MonthPickerInput } from "@mantine/dates";
 import { Checkbox, Button } from "@mantine/core";
 import { useSelector } from "react-redux";
-import { useForm } from "@mantine/form";
+import { isNotEmpty, useForm } from "@mantine/form";
+import { title } from "process";
 
 const ExpInput = (props: any) => {
   const profile = useSelector((state: any) => state.profile);
@@ -29,6 +30,13 @@ const ExpInput = (props: any) => {
       endDate: new Date(),
       working: false,
       description: "",
+    },
+
+    validate: {
+      title: isNotEmpty("Titlr is required"),
+      company: isNotEmpty("Company is required"),
+      location: isNotEmpty("Location is required"),
+      description: isNotEmpty("Description is required"),
     },
   });
 
