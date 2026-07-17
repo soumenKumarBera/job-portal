@@ -24,10 +24,11 @@ import { setPriority } from "os";
 import { profileAction } from "../Slices/ProfileSlice";
 import About from "./About";
 import Skills from "./Skills";
+import Experience from "./Experience";
 
 const Profile = (props: any) => {
-   const user = useSelector((state: any) => state.user);
-    const profile = useSelector((state:any) => state.profile);
+  const user = useSelector((state: any) => state.user);
+  const profile = useSelector((state: any) => state.profile);
 
   const skills = [
     "React",
@@ -59,23 +60,14 @@ const Profile = (props: any) => {
     setEdit(newEdit);
   };
 
- 
- 
   const dispatch = useDispatch();
-      
 
   useEffect(() => {
-
-  
-    
-
     getProfile(user.id)
-      .then((res:any) => {
-        dispatch(profileAction.setProfile(res))
-        
-        
+      .then((res: any) => {
+        dispatch(profileAction.setProfile(res));
       })
-      .catch((err:any) => {
+      .catch((err: any) => {
         console.log(err);
       });
   }, []);
@@ -91,7 +83,7 @@ const Profile = (props: any) => {
         />
       </div>
       <div className="px-3 mt-25">
-        <Info {...props}/>
+        <Info {...props} />
       </div>
 
       <Divider mx="xs" my="xl" />
@@ -104,41 +96,7 @@ const Profile = (props: any) => {
 
       <Divider mx="xs" my="xl" />
 
-      <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 flex justify-between">
-          Experience
-          <div className=" flex gap-2">
-            <ActionIcon
-              aria-label="Settings"
-              size="lg"
-              variant="subtle"
-              onClick={() => setAddExp(true)}
-            >
-              <IconPlus className="h-4/5 w-4/5 " />
-            </ActionIcon>
-
-            <ActionIcon
-              aria-label="Settings"
-              size="lg"
-              onClick={() => handelEdit(3)}
-            >
-              {edit[3] ? (
-                <IconDeviceFloppy className="h-4/5 w-4/5 " />
-              ) : (
-                <IconPencil className="h-4/5 w-4/5 " />
-              )}
-            </ActionIcon>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-8">
-          {profile.experiences?.map((exp: any, index: any) => (
-            <ExpCard key={index} {...exp} edit={edit[3]} />
-          ))}
-
-          {addExp && <ExpInput add setEdit={setAddExp} />}
-        </div>
-      </div>
+      <Experience />
 
       <Divider mx="xs" my="xl" />
 

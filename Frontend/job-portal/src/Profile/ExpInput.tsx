@@ -5,8 +5,12 @@ import fields from "../Data/Profile";
 import { useState } from "react";
 import { MonthPickerInput } from "@mantine/dates";
 import { Checkbox, Button } from "@mantine/core";
+import { useSelector } from "react-redux";
+import { useForm } from "@mantine/form";
 
 const ExpInput = (props: any) => {
+  const profile = useSelector((state: any) => state.profile);
+
   const select = fields;
   const [desc, setDece] = useState(
     "As a Software Engineer at Google, I am responsible for designing, developing, and maintaining scalable software solutions that enhance user experience and improve operational efficiency. My role involves collaborating with cross-functional teams to define project requirements, develop technical specifications, and implement robust applications using cutting-edge technologies. I actively participate in code reviews, ensuring adherence to best practices and coding standards, and contribute to the continuous improvement of the development process.",
@@ -15,9 +19,25 @@ const ExpInput = (props: any) => {
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [checked, setChecked] = useState(false);
 
+  const form = useForm({
+    mode: "controlled",
+    initialValues: {
+      title: "",
+      company: "",
+      location: "",
+      startDate: new Date(),
+      endDate: new Date(),
+      working: false,
+      description: "",
+    },
+  });
+
   return (
     <div className="flex flex-col gap-3">
-      <div className="text-lg font-semibold"> {props.add ? "New": "Edit"} Experience</div>
+      <div className="text-lg font-semibold">
+        {" "}
+        {props.add ? "New" : "Edit"} Experience
+      </div>
       <div className="flex gap-10 [&>*]:w-1/2">
         <SelectInput {...select[0]} />
         <SelectInput {...select[1]} />
@@ -62,7 +82,11 @@ const ExpInput = (props: any) => {
         <Button variant="outline" onClick={() => props.setEdit(false)}>
           Save
         </Button>
-        <Button color="red.8" variant="light" onClick={() => props.setEdit(false)}>
+        <Button
+          color="red.8"
+          variant="light"
+          onClick={() => props.setEdit(false)}
+        >
           Cancel
         </Button>
       </div>
