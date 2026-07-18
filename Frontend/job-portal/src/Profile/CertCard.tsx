@@ -27,7 +27,7 @@ const CertCard = (props: any) => {
         </div>
 
         {props.edit && (
-          <ActionIcon aria-label="Settings" color="red.8" variant="subtle" size="lg">
+          <ActionIcon aria-label="Settings" color="red.8" variant="subtle" size="lg" >
             <IconTrash className="h-4/5 w-4/5 " stroke={1.5} />
           </ActionIcon>
         )}

@@ -25,6 +25,7 @@ import { profileAction } from "../Slices/ProfileSlice";
 import About from "./About";
 import Skills from "./Skills";
 import Experience from "./Experience";
+import Certificate from "./Certification";
 
 const Profile = (props: any) => {
   const user = useSelector((state: any) => state.user);
@@ -85,56 +86,14 @@ const Profile = (props: any) => {
       <div className="px-3 mt-25">
         <Info {...props} />
       </div>
-
       <Divider mx="xs" my="xl" />
-
-      <About />
-
+      <About /> 
       <Divider mx="xs" my="xl" />
-
       <Skills />
-
       <Divider mx="xs" my="xl" />
-
-      <Experience />
-
+      <Experience /> 
       <Divider mx="xs" my="xl" />
-
-      <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 flex justify-between">
-          Certicication
-          <div className=" flex gap-2">
-            <ActionIcon
-              aria-label="Settings"
-              size="lg"
-              variant="subtle"
-              onClick={() => setAddCert(true)}
-            >
-              <IconPlus className="h-4/5 w-4/5 " />
-            </ActionIcon>
-
-            <ActionIcon
-              aria-label="Settings"
-              size="lg"
-              onClick={() => handelEdit(4)}
-            >
-              {edit[4] ? (
-                <IconDeviceFloppy className="h-4/5 w-4/5 " />
-              ) : (
-                <IconPencil className="h-4/5 w-4/5 " />
-              )}
-            </ActionIcon>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-8">
-          {profile.certifications?.map((cert: any, index: any) => (
-            <CertCard key={index} edit={edit[4]} {...cert} />
-          ))}
-
-          {addCert && <CertInput setEdit={setAddCert} />}
-        </div>
-      </div>
+      <Certificate />
     </div>
   );
 };
