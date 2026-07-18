@@ -35,6 +35,7 @@ return    <div className="px-3">
               size="lg"
               variant="subtle"
               onClick={ handelClick}
+              color={edit? "red.8": ""}
             >
               {edit ? (
                 <IconX className="h-4/5 w-4/5 " />

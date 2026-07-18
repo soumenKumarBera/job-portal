@@ -139,7 +139,7 @@ const ExpInput = (props: any) => {
       />
 
       <div className="flex gap-5">
-        <Button variant="outline" onClick={handelSave}>
+        <Button variant="outline" color="green.8" onClick={handelSave}>
           Save
         </Button>
         <Button
