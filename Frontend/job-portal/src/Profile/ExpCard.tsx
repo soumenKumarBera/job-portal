@@ -45,7 +45,7 @@ const ExpCard = (props: any) => {
       )}
     </div>
   ) : (
-    <ExpInput setEdit ={setEdit}/>
+    <ExpInput {...props} setEdit ={setEdit}/>
   );
 };
 

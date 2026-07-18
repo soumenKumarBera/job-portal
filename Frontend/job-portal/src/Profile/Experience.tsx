@@ -46,8 +46,8 @@ return    <div className="px-3">
         </div>
 
         <div className="flex flex-col gap-8">
-          {profile.experiences?.map((exp: any, index: any) => (
-            <ExpCard key={index} {...exp} edit={edit} />
+          {profile?.experiences?.map((exp: any, index: any) => (
+            <ExpCard key={index} index = {index} {...exp} edit={edit} />
           ))}
 
           {addExp && <ExpInput add setEdit={setAddExp} />}
