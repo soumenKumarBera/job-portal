@@ -62,12 +62,19 @@ const ExpInput = (props: any) => {
     if (props.add) {
       exp.push(form.getValues());
       exp[exp.length - 1].startDate = new Date(
-        exp[exp.length - 1].startDate).toISOString();
-      exp[exp.length - 1].endDate =new Date(exp[exp.length - 1].endDate).toISOString();
+        exp[exp.length - 1].startDate,
+      ).toISOString();
+      exp[exp.length - 1].endDate = new Date(
+        exp[exp.length - 1].endDate,
+      ).toISOString();
     } else {
-      exp[props.index]=form.getValues();
-      exp[props.index].startDate =new Date(exp[props.index].startDate).toISOString();
-      exp[props.index].endDate =new Date(exp[props.index].endDate).toISOString();
+      exp[props.index] = form.getValues();
+      exp[props.index].startDate = new Date(
+        exp[props.index].startDate,
+      ).toISOString();
+      exp[props.index].endDate = new Date(
+        exp[props.index].endDate,
+      ).toISOString();
     }
 
     const update = { ...profile, experiences: exp };
