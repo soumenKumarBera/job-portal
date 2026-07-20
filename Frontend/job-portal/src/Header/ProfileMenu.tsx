@@ -21,6 +21,8 @@ import { Link } from "react-router-dom";
 import { removeUser } from "../Slices/UserSlice";
 
 const ProfileMenu = () => {
+
+  const profile = useSelector((state:any) => state.profile);
   const user = useSelector((state: any )=> state.user);
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
@@ -34,7 +36,7 @@ const ProfileMenu = () => {
       <Menu.Target>
         <div className="flex gap-2 items-center cursor-pointer">
           <div>{user.name}</div>
-          <Avatar src="avatar.png" alt="it's me" />
+          <Avatar src={profile.picture? `data:image/jpeg;base64,${profile.picture}`: "/Avatar.png"} alt="it's me" />
         </div>
       </Menu.Target>
 

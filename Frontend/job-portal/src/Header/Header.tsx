@@ -3,13 +3,27 @@ import { IconSettings, IconBell, IconAnchor } from "@tabler/icons-react";
 import NavLinks from "./NavLink";
 import { Link, useLocation } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getProfile } from "../Servicess/ProfileService";
+import { profileAction } from "../Slices/ProfileSlice";
 
 const Header = () => {
   // ata dia cuurent hook bujte parbo
 
   const user = useSelector((state:any) => state.user);
   const location = useLocation();
+  const dispatch = useDispatch()
+
+    useEffect(() => {
+      getProfile(user.id)
+        .then((res: any) => {
+          dispatch(profileAction.setProfile(res));
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    }, []);
 
   return location.pathname != "/signup" && location.pathname != "/login"? (
     <div className="w-full bg-mine-shaft-950 text-white h-20 flex justify-between p-6 items-center">
