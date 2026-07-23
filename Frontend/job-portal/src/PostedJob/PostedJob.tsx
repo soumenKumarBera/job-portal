@@ -3,6 +3,9 @@ import { activeJobs } from '../Data/PostedJob';
 import PostedJobCard from './PostedJobCard';
 
 const PostedJob = () => {
+
+
+  
   return <div className="w-1/6 mb-5 mt-5">
     <div className="text-2xl font-semibold mb-5 ">Jobs</div>
     <div className='flex text-center'>
