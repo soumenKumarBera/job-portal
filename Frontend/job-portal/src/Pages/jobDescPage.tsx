@@ -26,10 +26,6 @@ const JobdescPage = () => {
         console.log(err);
       })
 
-  
-
-
-
   }, [id]);
 
   return (
