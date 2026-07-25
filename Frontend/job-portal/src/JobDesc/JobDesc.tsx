@@ -6,47 +6,56 @@ import { ActionIcon } from "@mantine/core";
 import { card, skills, desc } from "../Data/JobDescData";
 
 import DOMPurify from "dompurify";
+import { timeAgo } from "../Servicess/Utilities";
 
-const JobDecs = (props:any) => {
-  const data = DOMPurify.sanitize(desc);
+const JobDecs = (props: any) => {
+  const data = DOMPurify.sanitize(props.description);
 
   return (
     <div className="w-2/3  pb-5">
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
           <div className="p-3 bg-mine-shaft-600 rounded-xl">
-            <img className="h-14 " src={`/Icons/Google.png`} alt="google" />
+            <img
+              className="h-14 "
+              src={`/Icons/${props.company}.png`}
+              alt={props.company}
+            />
           </div>
           <div>
-            <div className="font-semibold">Software engineare</div>
+            <div className="font-semibold">{props.jobTitle}</div>
             <div className="text-lg text-mine-shaft-400">
-              google &#x2022; 3 Days ago &#x2022; 45 Applications
+              {props.company} &#x2022; {timeAgo(props.postTime)} &#x2022;{" "}
+              {props.applications ? props.applications.length : 0} Applications
             </div>
           </div>
         </div>
 
         <div className="flex flex-col gap-3 items-center">
-          <Link to="/apply-job">
+          <Link to={`/apply-job/${props.id}`}>
             <Button
               variant="light"
               className="!text-bright-sun-400"
               color="orange"
             >
-              {props.edit? "Edit": "Apply"}
+              {props.edit ? "Edit" : "Apply"}
             </Button>
           </Link>
 
-          {props.edit?   <Button
+          {props.edit ? (
+            <Button
               variant="outline"
               className="!text-bright-sun-400"
               color="red.5"
             >
               Delete
-            </Button>: <IconBookmark
-            stroke={2}
-            className="text-mine-shaft-300 cursor-pointer"
-          /> }
-         
+            </Button>
+          ) : (
+            <IconBookmark
+              stroke={2}
+              className="text-mine-shaft-300 cursor-pointer"
+            />
+          )}
         </div>
       </div>
       <Divider size="xs" my="xl" />
@@ -64,7 +73,10 @@ const JobDecs = (props:any) => {
             </ActionIcon>
 
             <div className="text-mine-shaft-300 text-sm">{item.name}</div>
-            <div className="font-semibold">{item.value}</div>
+            <div className="font-semibold">
+              {props ? props[item.id] : "NA"}{" "}
+              {item.id == "packageOffered" && <> LPA </>}
+            </div>
           </div>
         ))}
       </div>
@@ -74,7 +86,7 @@ const JobDecs = (props:any) => {
           <div className="text-xl font-semibold mb-5">Requered skils</div>
         </div>
         <div className=" flex flex-wrap gap-2">
-          {skills.map((item, index) => (
+          {props?.skillsRequired?.map((item: any, index: number) => (
             <ActionIcon
               className="!h-fit !w-fit font-medium !text-bright-sun-400"
               variant="light"
@@ -103,15 +115,15 @@ const JobDecs = (props:any) => {
         <div className="flex justify-between mb-3">
           <div className="flex gap-2 items-center">
             <div className="p-3 bg-mine-shaft-600 rounded-xl">
-              <img className="h-8 " src={`/Icons/Google.png`} alt="google" />
+              <img className="h-8 " src={`/Icons/${props.company}.png`} alt={props.company} />
             </div>
             <div>
-              <div className="font-medium">Google</div>
+              <div className="font-medium">{props.company}</div>
               <div className=" text-mine-shaft-400">10K+ Employees</div>
             </div>
           </div>
 
-          <Link to="/company">
+          <Link to={`/company/${props.company}`}>
             <Button
               variant="light"
               className="!text-bright-sun-400"

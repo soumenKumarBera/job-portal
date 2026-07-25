@@ -16,14 +16,14 @@ const PostJob = () => {
 
   const form = useForm({
     mode: "controlled",
-    validateInputOnChange: true,
-
+    validateInputOnChange:true,
     initialValues: {
+      jobTitle:"",
       company: "",
       experience: "",
       jobType: "",
       location: "",
-      pacakgeOffered: "",
+      packageOffered: "",
       skillsRequired: [],
       about: "",
       description:content
@@ -35,20 +35,27 @@ const PostJob = () => {
       experience: isNotEmpty("Experience is required"),
       jobType: isNotEmpty("Job Type is required"),
       location: isNotEmpty("Location is required"),
-      pacakgeOffered: isNotEmpty("Package is required"),
+      packageOffered: isNotEmpty("Package is required"),
       skillsRequired: isNotEmpty("Skills are required"),
       about: isNotEmpty("About is required"),
-      description: isNotEmpty("Description is required"),
+      
     },
   });
 
   const handelPost = () =>{
     form.validate();
-    if(!form.validate())return;
+   
+   
+    if(!form.isValid()){
+   
+      return;
+    }
+      
 
+    console.log("called");
     postJob(form.getValues())
     .then(res => {
-
+console.log("confrom");
       successNotification("Success", "Job Posted SucessFully");
       navigate("/posted-job")
     }).catch(err => {
@@ -82,7 +89,7 @@ const PostJob = () => {
             min={1}
             max={300}
             clampBehavior="strict"
-            {...form.getInputProps("pacakgeOffered")}
+            {...form.getInputProps("packageOffered")}
           />
         </div>
 
