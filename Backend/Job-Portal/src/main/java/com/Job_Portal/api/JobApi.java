@@ -1,6 +1,7 @@
 package com.Job_Portal.api;
 
 
+import com.Job_Portal.dto.ApplicantDTO;
 import com.Job_Portal.dto.JobDTO;
 import com.Job_Portal.dto.ResponseDto;
 import com.Job_Portal.dto.UserDto;
@@ -45,6 +46,14 @@ public class JobApi {
 
 
         return new ResponseEntity<>(jobServices.getJob(id), HttpStatus.OK);
+
+    }
+
+    @PostMapping("/apply/{id}")
+    public ResponseEntity<ResponseDto> applyJob(@PathVariable Long id, @RequestBody ApplicantDTO applicantDTO) throws JobPortalException {
+        jobServices.applyJob(id, applicantDTO);
+
+        return new ResponseEntity<>(new ResponseDto("Apply Successfully"), HttpStatus.OK);
 
     }
 }
