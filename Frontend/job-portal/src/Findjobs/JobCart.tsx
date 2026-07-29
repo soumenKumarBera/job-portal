@@ -24,7 +24,7 @@ const JobCart = (jobDetails: any) => {
             <div className="font-semibold">{jobDetails.jobTitle}</div>
             <div className="text-xs text-mine-shaft-300">
               {jobDetails.company} &#x2022;{" "}
-              {jobDetails.applications ? jobDetails.applications.length : 0}{" "}
+              {jobDetails.applicants ? jobDetails.applicants.length : 0}{" "}
               Applications
             </div>
           </div>

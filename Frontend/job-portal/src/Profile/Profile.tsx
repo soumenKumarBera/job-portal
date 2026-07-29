@@ -32,6 +32,7 @@ import { resolve } from "path";
 import { rejects } from "assert";
 import { error } from "console";
 import { successNotification } from "../Servicess/NotificationService";
+import { getBase64 } from "../Servicess/Utilities";
 
 const Profile = (props: any) => {
   const user = useSelector((state: any) => state.user);
@@ -88,14 +89,7 @@ const Profile = (props: any) => {
       });
   };
 
-  const getBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
+ 
 
   return (
     <div className="w-4/5 pb-10 mx-auto">

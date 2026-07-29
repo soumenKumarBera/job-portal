@@ -11,8 +11,9 @@ import { Notification, rem } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { LoadingOverlay, Group, Box } from "@mantine/core";
 import ApplicationForm from "./ApplicationFrom";
+import { timeAgo } from "../Servicess/Utilities";
 
-const ApplyJobCom = () => {
+const ApplyJobCom = (props:any) => {
  
 
   return (
@@ -22,12 +23,12 @@ const ApplyJobCom = () => {
         <div className="flex justify-between">
           <div className="flex gap-2 items-center">
             <div className="p-3 bg-mine-shaft-600 rounded-xl">
-              <img className="h-14 " src={`/Icons/Google.png`} alt="google" />
+              <img className="h-14 " src={`/Icons/${props.company}.png`} alt="google" />
             </div>
             <div>
-              <div className="font-semibold">Software engineare</div>
+              <div className="font-semibold">{props.jobTitle}</div>
               <div className="text-lg text-mine-shaft-400">
-                google &#x2022; 3 Days ago &#x2022; 45 Applications
+                {props.company} &#x2022;  Posted: { timeAgo(props.postTime)} &#x2022; {props.applicants? props.applicants.length : 0} Applications
               </div>
             </div>
           </div>

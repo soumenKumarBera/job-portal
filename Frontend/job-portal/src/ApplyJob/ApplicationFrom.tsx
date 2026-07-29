@@ -9,9 +9,16 @@ import {
 import { isEmail, isNotEmpty, useForm } from "@mantine/form";
 import { IconPaperclip } from "@tabler/icons-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getBase64 } from "../Servicess/Utilities";
+import { ApplyJob } from "../Servicess/jobService";
+import { errorNotification, successNotification } from "../Servicess/NotificationService";
+import { useSelector } from "react-redux";
 
 const ApplicationForm = () => {
+ const {id} = useParams();
+ const user = useSelector((state:any )=> state.user )
+
   const [preview, setPreview] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [sec, setSec] = useState(5);
@@ -26,16 +33,35 @@ const ApplicationForm = () => {
     console.log(form.getValues());
   };
 
-  const handelSubmit = () => {
-    // setSubmit(true);
-    // let x = 5;
-    // setInterval(() => {
-    //   x--;
-    //   setSec(x);
-    //   if (x == 0) {
-    //     navigate("/find-jobs");
-    //   }
-    // }, 1000);
+  const handelSubmit = async () => {
+
+    setSubmit(true);
+
+    let resume:any = await getBase64(form.getValues().resume);
+
+    let applicant = {...form.getValues(),applicantId:user.id , resume:resume.split(',')[1]}
+
+    ApplyJob(id, applicant).then(res =>{
+      setSubmit(true)
+ 
+         let x = 4;
+    setInterval(() => {
+      x--;
+      setSec(x);
+      if (x == 0) {
+        navigate("/find-jobs");
+      }
+    }, 1000);
+    successNotification("Success", res.message );
+    }).catch(err =>{
+
+      setSubmit(false);
+      console.log(err)
+      errorNotification("Error",err.response.data.errorMessage );
+    })
+
+  
+ 
   };
 
   const form = useForm({
@@ -63,13 +89,13 @@ const ApplicationForm = () => {
 
   return (
     <>
-      {/* <LoadingOverlay
+      <LoadingOverlay
           className="!fixed"
           visible={submit}
           zIndex={1000}
           overlayProps={{ radius: "sm", blur: 2 }}
           loaderProps={{ color: "bright-sun.4", type: "bars" }}
-        /> */}
+        />
       <div className="text-xl font-semibold mb-5">Sumit your application</div>
       <div className="flex flex-col gap-5">
         <div className="flex gap-10 [&>*]:w-1/2">

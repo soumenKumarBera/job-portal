@@ -26,7 +26,7 @@ const JobDecs = (props: any) => {
             <div className="font-semibold">{props.jobTitle}</div>
             <div className="text-lg text-mine-shaft-400">
               {props.company} &#x2022; {timeAgo(props.postTime)} &#x2022;{" "}
-              {props.applications ? props.applications.length : 0} Applications
+              {props.applicants ? props.applicants.length : 0} Applications
             </div>
           </div>
         </div>
