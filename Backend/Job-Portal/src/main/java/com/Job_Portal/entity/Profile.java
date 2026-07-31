@@ -32,10 +32,11 @@ public class Profile {
     private List<String> skills;
     private List<Experience> experiences;
     private List<certificate> certifications;
+    private List<Long> savedJobs;
 
     public ProfileDTO toDto(){
         return new ProfileDTO(this.id, this.email, this.jobTitle, this.company, this.location, this.about,this.picture != null? Base64.getEncoder().encodeToString(this.picture): null,
-        this.skills, this.experiences, this.certifications);
+        this.skills, this.experiences, this.certifications, this.savedJobs);
     }
 
 }
