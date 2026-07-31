@@ -1,4 +1,8 @@
-import { IconBookmark, IconMapPin } from "@tabler/icons-react";
+import {
+  IconBookmark,
+  IconBookmarkFilled,
+  IconMapPin,
+} from "@tabler/icons-react";
 import { Text, Avatar, Button } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { Divider } from "@mantine/core";
@@ -7,9 +11,48 @@ import { card, skills, desc } from "../Data/JobDescData";
 
 import DOMPurify from "dompurify";
 import { timeAgo } from "../Servicess/Utilities";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProfile } from "../Servicess/ProfileService";
+import { profileAction } from "../Slices/ProfileSlice";
+import { useEffect, useState } from "react";
 
 const JobDecs = (props: any) => {
   const data = DOMPurify.sanitize(props.description);
+  const profile = useSelector((state: any) => state.profile);
+  const user = useSelector((state: any) => state.user);
+  const dispatch = useDispatch();
+  const [applied, setApplied] = useState(false);
+  const handelSaveJob = () => {
+    let savedJobs: any = [...profile.savedJobs];
+
+    if (savedJobs.includes(props.id)) {
+      savedJobs = savedJobs.filter((id: any) => id !== props.id);
+    } else {
+      savedJobs = [...savedJobs, props.id];
+    }
+
+    let update = { ...profile, savedJobs: savedJobs };
+
+    updateProfile(update)
+      .then((res) => {
+        dispatch(profileAction.changeProfile(res));
+      })
+      .catch((error) => {
+        console.log(error.response.data.errorMessage);
+      });
+  };
+
+  useEffect(() => {
+    if (
+      props.applicants?.filter(
+        (applicant: any) => applicant.applicantId == user.id,
+      ).length > 0
+    ) {
+      setApplied(true);
+    } else {
+      setApplied(false);
+    }
+  }, [props]);
 
   return (
     <div className="w-2/3  pb-5">
@@ -32,15 +75,26 @@ const JobDecs = (props: any) => {
         </div>
 
         <div className="flex flex-col gap-3 items-center">
-          <Link to={`/apply-job/${props.id}`}>
+          {props.edit ||
+            (!applied && (
+              <Link to={`/apply-job/${props.id}`}>
+                <Button
+                  variant="light"
+                  className="!text-bright-sun-400"
+                  color="orange"
+                >
+                  {props.edit ? "Edit" : "Apply"}
+                </Button>
+              </Link>
+            ))}
+          {applied && (
             <Button
-              variant="light"
-              className="!text-bright-sun-400"
-              color="orange"
+              variant="light" color="green"
+              className="!text-green-700"
             >
-              {props.edit ? "Edit" : "Apply"}
+              Applied
             </Button>
-          </Link>
+          )}
 
           {props.edit ? (
             <Button
@@ -50,10 +104,17 @@ const JobDecs = (props: any) => {
             >
               Delete
             </Button>
+          ) : profile.savedJobs?.includes(props.id) ? (
+            <IconBookmarkFilled
+              onClick={handelSaveJob}
+              stroke={2}
+              className=" cursor-pointer text-bright-sun-400 "
+            />
           ) : (
             <IconBookmark
+              onClick={handelSaveJob}
               stroke={2}
-              className="text-mine-shaft-300 cursor-pointer"
+              className="text-mine-shaft-300 cursor-pointer hover:text-bright-sun-400 "
             />
           )}
         </div>
@@ -115,7 +176,11 @@ const JobDecs = (props: any) => {
         <div className="flex justify-between mb-3">
           <div className="flex gap-2 items-center">
             <div className="p-3 bg-mine-shaft-600 rounded-xl">
-              <img className="h-8 " src={`/Icons/${props.company}.png`} alt={props.company} />
+              <img
+                className="h-8 "
+                src={`/Icons/${props.company}.png`}
+                alt={props.company}
+              />
             </div>
             <div>
               <div className="font-medium">{props.company}</div>
