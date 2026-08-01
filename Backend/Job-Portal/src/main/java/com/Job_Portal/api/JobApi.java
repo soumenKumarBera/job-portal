@@ -1,10 +1,7 @@
 package com.Job_Portal.api;
 
 
-import com.Job_Portal.dto.ApplicantDTO;
-import com.Job_Portal.dto.JobDTO;
-import com.Job_Portal.dto.ResponseDto;
-import com.Job_Portal.dto.UserDto;
+import com.Job_Portal.dto.*;
 import com.Job_Portal.jobPortalException.JobPortalException;
 import com.Job_Portal.services.JobServices;
 import jakarta.validation.Valid;
@@ -64,4 +61,14 @@ public class JobApi {
         return new ResponseEntity<>(jobServices.getJobsPostedBY(id), HttpStatus.OK);
 
     }
+
+    @PostMapping("/changeApplicationStatus")
+    public ResponseEntity<ResponseDto> changeApplicationStatus(@RequestBody ApplicationDto applicationDto) throws JobPortalException {
+
+        jobServices.changeAppStatus(applicationDto);
+
+        return new ResponseEntity<>(new ResponseDto("Application Status Change Successfully."), HttpStatus.OK);
+
+    }
+
 }
