@@ -67,4 +67,11 @@ public class JobServiceImp implements  JobServices{
 
 
     }
+
+    @Override
+    public List<JobDTO> getJobsPostedBY(Long id) {
+
+
+        return jobRepository.findByPostedBy(id).stream().map((x)->x.toDto()).toList();
+    }
 }
