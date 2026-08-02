@@ -75,8 +75,8 @@ const JobDecs = (props: any) => {
         </div>
 
         <div className="flex flex-col gap-3 items-center">
-          {props.edit ||
-            (!applied && (
+          {(props.edit ||
+            !applied )&& (
               <Link to={`/apply-job/${props.id}`}>
                 <Button
                   variant="light"
@@ -86,7 +86,7 @@ const JobDecs = (props: any) => {
                   {props.edit ? "Edit" : "Apply"}
                 </Button>
               </Link>
-            ))}
+            )}
           {applied && (
             <Button
               variant="light" color="green"
