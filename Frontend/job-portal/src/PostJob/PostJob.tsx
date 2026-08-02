@@ -7,18 +7,24 @@ import { Text, Avatar, Button } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { postJob } from "../Servicess/jobService";
-import { errorNotification, successNotification } from "../Servicess/NotificationService";
+import {
+  errorNotification,
+  successNotification,
+} from "../Servicess/NotificationService";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PostJob = () => {
   const select = fields;
   const navigate = useNavigate();
 
+  const profile = useSelector((state: any) => state.profile);
+
   const form = useForm({
     mode: "controlled",
-    validateInputOnChange:true,
+    validateInputOnChange: true,
     initialValues: {
-      jobTitle:"",
+      jobTitle: "",
       company: "",
       experience: "",
       jobType: "",
@@ -26,7 +32,7 @@ const PostJob = () => {
       packageOffered: "",
       skillsRequired: [],
       about: "",
-      description:content
+      description: content,
     },
 
     validate: {
@@ -38,33 +44,40 @@ const PostJob = () => {
       packageOffered: isNotEmpty("Package is required"),
       skillsRequired: isNotEmpty("Skills are required"),
       about: isNotEmpty("About is required"),
-      
     },
   });
 
-  const handelPost = () =>{
+  const handelPost = () => {
     form.validate();
-   
-   
-    if(!form.isValid()){
-   
+
+    if (!form.isValid()) {
       return;
     }
-      
 
-    console.log("called");
-    postJob(form.getValues())
-    .then(res => {
-console.log("confrom");
-      successNotification("Success", "Job Posted SucessFully");
-      navigate("/posted-job")
-    }).catch(err => {
+    postJob({ ...form.getValues(), postedBy: profile.id, jobStatus: "ACTIVE" })
+      .then((res) => {
+        console.log("confrom");
+        successNotification("Success", "Job Posted SucessFully");
+        navigate(`/posted-job/${res.id}`);
+      })
+      .catch((err) => {
         console.log(err);
-        errorNotification("Error", err.response.data.errorMessage)
+        errorNotification("Error", err.response.data.errorMessage);
+      });
+  };
 
-    })
-
-  }
+  const handelDraft = () => {
+    postJob({ ...form.getValues(), postedBy: profile.id, jobStatus: "DRAFT" })
+      .then((res) => {
+        console.log("confrom");
+        successNotification("Success", "Job Saved as Draft SucessFully");
+        navigate(`/posted-job/${res.id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        errorNotification("Error", err.response.data.errorMessage);
+      });
+  };
 
   return (
     <div className="w-4/5 mx-auto pt-5 pb-10">
@@ -103,22 +116,23 @@ console.log("confrom");
           {...form.getInputProps("skillsRequired")}
         />
 
-         <Textarea
-                {...form.getInputProps("about")}
-                withAsterisk
-                label="About"
-                // onChange={(e) => setDece(e.currentTarget.value)}
-                autosize
-                minRows={2}
-                placeholder="Enter about job..."
-              />
+        <Textarea
+          {...form.getInputProps("about")}
+          withAsterisk
+          label="About"
+          // onChange={(e) => setDece(e.currentTarget.value)}
+          autosize
+          minRows={2}
+          placeholder="Enter about job..."
+        />
 
         <div className="[&_button[data-active = 'true']]:!text-bright-sun-400 [&_button[data-active = 'true']]:!bg-bright-sun-400/2">
-          <div className="text-sm font-medium">Job Description <span className="text-red-500">*</span></div>
+          <div className="text-sm font-medium">
+            Job Description <span className="text-red-500">*</span>
+          </div>
 
           <TextEditor form={form} name="description" />
         </div>
-
 
         <div className="flex gap-4 justify-around">
           <Button
@@ -133,6 +147,7 @@ console.log("confrom");
             variant="outline"
             className="!text-bright-sun-300"
             color="orange"
+            onClick={handelDraft}
           >
             Save as Draft{" "}
           </Button>
