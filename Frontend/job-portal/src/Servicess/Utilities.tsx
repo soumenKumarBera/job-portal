@@ -30,13 +30,28 @@ const timeAgo = (time: string) => {
   }
 };
 
- const getBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
+const getBase64 = (file: any) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
 
-export { formateDate, timeAgo, getBase64 };
+const formateInterviewTime = (dateTime: any) => {
+  
+
+  const date = new Date(dateTime);
+
+  return date.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
+
+export { formateDate, timeAgo, getBase64, formateInterviewTime };

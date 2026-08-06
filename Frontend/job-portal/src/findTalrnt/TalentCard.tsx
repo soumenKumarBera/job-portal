@@ -2,19 +2,66 @@ import { IconCalendar, IconHeart } from "@tabler/icons-react";
 import { Text, Avatar, Button } from "@mantine/core";
 import { Divider } from "@mantine/core";
 import { IconMapPin } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TimeInput } from "@mantine/dates";
 import { useRef } from "react";
+import { getProfile } from "../Servicess/ProfileService";
+import { changeAppStatus } from "../Servicess/jobService";
+import { errorNotification, successNotification } from "../Servicess/NotificationService";
+import { formateInterviewTime } from "../Servicess/Utilities";
 
 const TalentCard = (props: any) => {
+  const {id} = useParams() ;
   const [opened, { open, close }] = useDisclosure(false);
-  const [value, setValue] = useState<string | null>(null);
+  const [date, setDate] = useState<string | null>(null);
+  const [time, setTime] = useState<any>(null);
   const ref = useRef<HTMLInputElement>(null);
+
+  const [profile, setProfile] = useState<any>({});
+
+  useEffect(() => {
+  
+    if (props.applicantId) {
+      getProfile(props.applicantId)
+        .then((res) => {
+          setProfile(res);
+          
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [props]);
+
+  const handleOffer = (status: string) => {
+
+    
+       
+    let interview:any= {id, applicantId:profile?.id,  interviewTime: `${date}T${time}:00`,  applicationStatus:status}
+     
+    changeAppStatus(interview).then((res) => {
+      successNotification(
+        "Interview Scheduled",
+       "Your interview has been scheduled successfully."
+      );
+      window.location.reload();
+      console.log(res);
+    
+    }).catch((err) => {
+      console.log(err);
+      console.log(interview);
+      errorNotification(
+        "Error",
+       err.response.data.errorMessage 
+      );
+    });
+    
+  };
 
   return (
     <div className="bg-mine-shaft-700 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !bright-sun-400 cursor-pointer mb-5">
@@ -22,38 +69,42 @@ const TalentCard = (props: any) => {
         <div className="flex gap-2 items-center">
           <div className="p-2 bg-mine-shaft-600 rounded-full">
             <Avatar
-              className="h-7 "
-              src={`/${props.image}.png`}
-              alt={props.image}
+              src={
+                profile.picture
+                  ? `data:image/jpeg;base64,${profile.picture}`
+                  : "/Avatar.png"
+              }
+              alt="it's me"
             />
           </div>
           <div className="flex flex-col gap-1">
             <div className="font-semibold text-lg">{props.name}</div>
             <div className="text-sm text-mine-shaft-300">
-              {props.role} &#x2022; {props.company}
+              {profile.jobTitle} &#x2022; {profile.company}
             </div>
           </div>
         </div>
         <IconHeart stroke={2} className="text-mine-shaft-300 cursor-pointer" />
       </div>
       <div className="flex gap-2 [&>div]:px-2 [&>div]:py-1 [&>div]:bg-mine-shaft-600 [&>div]:rounded-lg [&>div]:text-xs [&>div]:text-bright-sun-400 mt-4">
-        {props.topSkills.map((skill: any, index: any) => (
-          <div key={index}>{skill}</div>
-        ))}
+        {profile.skills?.map(
+          (skill: any, index: any) =>
+            index < 3 && <div key={index}>{skill}</div>,
+        )}
       </div>
       <Text lineClamp={3} className="text-xs text-justify text-mine-shaft-300 ">
-        {props.about} {/* Text content */}
+        {profile.about} {/* Text content */}
       </Text>
       <Divider size="xs" color="mine-shaft.7" />
       {props.invited ? (
         <div className=" flex gap-1 text-mine-shaft-200 text-sm items-center">
-          <IconCalendar stroke={1.5} /> Interview: August 26, 2024 10:00 AM
+          <IconCalendar stroke={1.5} /> Interview: {formateInterviewTime(props.interviewTime)}
         </div>
       ) : (
         <div className="flex justify-between text-sm ">
-          <div className="font-semibold">{props.expectedCtc}</div>
+          <div className="font-semibold">23LPA</div>
           <div className="flex items-center gap-1 text-mine-shaft-300">
-            <IconMapPin className="size-5" stroke={1.5} /> {props.location}
+            <IconMapPin className="size-5" stroke={1.5} /> {profile?.location}
           </div>
         </div>
       )}
@@ -110,12 +161,7 @@ const TalentCard = (props: any) => {
             </div>
             <div>
               {" "}
-              <Button
-               
-                variant="light"
-                radius="sm"
-                fullWidth
-              >
+              <Button variant="light" radius="sm" fullWidth>
                 Reject
               </Button>
             </div>
@@ -132,8 +178,8 @@ const TalentCard = (props: any) => {
         {/* Modal content */}
         <div className=" flex flex-col gap-5">
           <DateInput
-            value={value}
-            onChange={setValue}
+            value={date}
+            onChange={setDate}
             label="Date"
             placeholder="Enter Date"
           />
@@ -141,10 +187,16 @@ const TalentCard = (props: any) => {
           <TimeInput
             label="Time"
             ref={ref}
+            value={time}
+            onChange={(event) => setTime(event.currentTarget.value)}
             onClick={() => ref.current?.showPicker()}
           />
 
-          <Button variant="light" fullWidth>
+          <Button
+            onClick={() => handleOffer("INTERVIEWING")}
+            variant="light"
+            fullWidth
+          >
             Schedule
           </Button>
         </div>

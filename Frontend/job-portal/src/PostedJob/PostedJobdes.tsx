@@ -33,16 +33,17 @@ const PostedJobDes = (props: any) => {
           </Tabs.Panel>
           <Tabs.Panel value="Applicants">
             <div className="flex mt-10 flex-wrap gap-5 justify-center">
-              {talents.map(
-                (talent, index) =>
-                  index < 6 && <TalentCard key={index} {...talent} posted />,
+              {props.applicants?.filter((x:any) => x.applicationStatus === 'APPLIED').map(
+                (talent:any, index:any) =>
+                  <TalentCard key={index} {...talent} posted />
+                  
               )}
             </div>
           </Tabs.Panel>
           <Tabs.Panel value="Invited">
             <div className="flex mt-10 flex-wrap gap-5 justify-center">
-              {talents.map(
-                (talent, index) =>
+              {props.applicants?.filter((x:any) => x.applicationStatus === 'INTERVIEWING').map(
+                (talent:any, index:any) =>
                   index < 6 && <TalentCard key={index} {...talent} invited />,
               )}
             </div>

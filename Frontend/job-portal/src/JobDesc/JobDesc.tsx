@@ -87,7 +87,7 @@ const JobDecs = (props: any) => {
                 </Button>
               </Link>
             )}
-          {applied && (
+          { !props.edit && applied && (
             <Button
               variant="light" color="green"
               className="!text-green-700"

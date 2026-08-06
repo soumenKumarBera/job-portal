@@ -48,7 +48,7 @@ const getJobPostedBy = async (id: any) => {
 
 const changeAppStatus = async (application: any) => {
   return axios
-    .post("${base_url}changeAppStatus", application)
+    .post(`${base_url}changeApplicationStatus`, application)
     .then((result) => result.data)
     .catch((error) => {
       throw error;
