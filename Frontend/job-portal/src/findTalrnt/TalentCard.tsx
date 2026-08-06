@@ -13,11 +13,12 @@ import { useRef } from "react";
 import { getProfile } from "../Servicess/ProfileService";
 import { changeAppStatus } from "../Servicess/jobService";
 import { errorNotification, successNotification } from "../Servicess/NotificationService";
-import { formateInterviewTime } from "../Servicess/Utilities";
+import { formateInterviewTime, openBase64PDF } from "../Servicess/Utilities";
 
 const TalentCard = (props: any) => {
   const {id} = useParams() ;
   const [opened, { open, close }] = useDisclosure(false);
+    const [app, { open: openApp, close: closeApp }] = useDisclosure(false);
   const [date, setDate] = useState<string | null>(null);
   const [time, setTime] = useState<any>(null);
   const ref = useRef<HTMLInputElement>(null);
@@ -168,6 +169,9 @@ const TalentCard = (props: any) => {
           </>
         )}
       </div>
+      {(props.invited || props.posted) &&<Button variant="filled" color="bright-sun.4" radius="sm" fullWidth autoContrast onClick={openApp}>
+                View Application
+              </Button>}
 
       <Modal
         opened={opened}
@@ -199,6 +203,42 @@ const TalentCard = (props: any) => {
           >
             Schedule
           </Button>
+        </div>
+      </Modal>
+
+       <Modal
+        opened={app}
+        onClose={closeApp}
+        title="Application Details"
+        centered
+      >
+        {/* Modal content */}
+        <div className=" flex flex-col gap-5">
+         
+         <div>
+          Email: &emsp; <a className="text-bright-sun-400 hover:underline  cursor-pointer text-center" href={`mailto:${props.email}`}>
+            {props.email}
+          </a>
+         </div>
+           <div>
+          Website: &emsp; <a  className="text-bright-sun-400 hover:underline  cursor-pointer text-center" href={props.website} target="_blank" rel="noopener noreferrer">
+            {props.website}
+          </a>
+         </div>
+
+           <div>
+          Resume: &emsp; <span className="text-bright-sun-400 hover:underline  cursor-pointer text-center" onClick={() => openBase64PDF(props.resume)}>
+            {props.name}
+          </span>
+         </div>
+             <div>
+          Cover Letter: &emsp; <div >
+            {props.coverLetter}
+          </div>
+         </div>
+
+
+          
         </div>
       </Modal>
     </div>

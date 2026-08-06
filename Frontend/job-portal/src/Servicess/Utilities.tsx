@@ -40,8 +40,6 @@ const getBase64 = (file: any) => {
 };
 
 const formateInterviewTime = (dateTime: any) => {
-  
-
   const date = new Date(dateTime);
 
   return date.toLocaleString("en-US", {
@@ -54,4 +52,23 @@ const formateInterviewTime = (dateTime: any) => {
   });
 };
 
-export { formateDate, timeAgo, getBase64, formateInterviewTime };
+// resume a show new tap......... 
+function openBase64PDF(base64String: string) {
+  const byteCharacters = atob(base64String);
+
+  const byteNumbers = new Array(byteCharacters.length);
+
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+
+  const byteArray = new Uint8Array(byteNumbers);
+
+  const blob = new Blob([byteArray], { type: "application/pdf" });
+
+  const blobURL = URL.createObjectURL(blob);
+
+  window.open(blobURL, "_blank");
+}
+
+export { formateDate, timeAgo, getBase64, formateInterviewTime, openBase64PDF };
