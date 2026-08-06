@@ -78,7 +78,7 @@ public class JobServiceImp implements  JobServices{
 
     @Override
     public void changeAppStatus(ApplicationDto applicationDto) throws JobPortalException {
-
+        System.out.print("hello" + applicationDto.getId());
         Job job = jobRepository.findById(applicationDto.getId()).orElseThrow(()->new JobPortalException("JOB_NOT_FOUND"));
 
         List<Applicant> applicants = job.getApplicants().stream().map((x) -> {
