@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Validated
 @RestController
 @CrossOrigin
@@ -32,6 +34,13 @@ public class ProfileApi {
     public ResponseEntity<ProfileDTO> UpdateProfile(@RequestBody ProfileDTO profileDTO) throws JobPortalException {
 
         return new ResponseEntity<>(profileService.updateProfile(profileDTO), HttpStatus.OK);
+
+    }
+    @GetMapping("/getAllProfile")
+    public ResponseEntity<List<ProfileDTO>> getAllProfile() throws JobPortalException {
+
+
+        return new ResponseEntity<>(profileService.getAllProfile(), HttpStatus.OK);
 
     }
 

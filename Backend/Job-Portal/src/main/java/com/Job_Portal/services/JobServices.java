@@ -3,6 +3,7 @@ package com.Job_Portal.services;
 import com.Job_Portal.dto.ApplicantDTO;
 import com.Job_Portal.dto.ApplicationDto;
 import com.Job_Portal.dto.JobDTO;
+import com.Job_Portal.dto.ProfileDTO;
 import com.Job_Portal.jobPortalException.JobPortalException;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface JobServices {
    public List<JobDTO>  getJobsPostedBY(Long id);
 
    public void changeAppStatus(ApplicationDto applicationDto) throws JobPortalException;
+
+
 }
