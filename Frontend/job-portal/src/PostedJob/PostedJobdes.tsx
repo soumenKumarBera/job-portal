@@ -32,8 +32,9 @@ const PostedJobDes = (props: any) => {
                 <Tabs.Tab value="rejected">Rejected</Tabs.Tab>
               </Tabs.List>
 
-              <Tabs.Panel value="Oberview" className="[&>div]:w-full mt-5">
-                <JobDecs edit {...props} />
+              <Tabs.Panel value="Oberview" className="[&>div]:w-full mt-5"> { props.jobStatus == "CLOSED"? <JobDecs edit {...props} closed/> : <JobDecs edit {...props} />
+                }
+                
               </Tabs.Panel>
               <Tabs.Panel value="Applicants">
                 <div className="flex mt-10 flex-wrap gap-5 justify-center">
