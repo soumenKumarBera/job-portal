@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import { talents } from "../Data/TalentData";
 import TalentCard from "../findTalrnt/TalentCard";
+import TalentOnly from "../findTalrnt/TalentOnly";
+import { useParams } from "react-router-dom";
 
-const RecommentTelant = () =>{
+const RecommentTelant = (props: any) =>{
+
+  const {id} = useParams();
+  
 
   return <div>
   <div className = " flex text-xl font-semibold mb-5 px-8">
@@ -9,10 +15,9 @@ const RecommentTelant = () =>{
   </div>
   <div className="flex flex-col flex-wrap gap-5 px-8 ">
     {
-      talents.map((talent, index) => index < 4 &&
-      
-      <TalentCard  key = {index} {...talent} />
-      )
+      props.talents?.map((talent: any, index: any) =>  (
+      index < 4 && id != talent.id  &&  <TalentOnly key={index} {...talent} />
+      ))
     }
   </div>
 

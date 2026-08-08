@@ -28,6 +28,8 @@ const TalentCard = (props: any) => {
 
   const [profile, setProfile] = useState<any>({});
 
+  
+
   useEffect(() => {
     if (props.applicantId) {
       getProfile(props.applicantId)
@@ -82,6 +84,9 @@ const TalentCard = (props: any) => {
       });
   };
 
+
+
+
   return (
     <div className="bg-mine-shaft-700 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !bright-sun-400 cursor-pointer mb-5">
       <div className="flex justify-between ">
@@ -133,7 +138,7 @@ const TalentCard = (props: any) => {
       <div className="flex [&>*]:w-1/2 [&>*]:p-1">
         {!props.invited && (
           <>
-            <Link to="/talent-profile ">
+            <Link to={`/talent-profile/${profile.id}`}>
               <Button
                 color="bright-sun.4 "
                 variant="outline"

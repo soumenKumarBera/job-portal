@@ -1,3 +1,5 @@
+import { formateDate } from "../Servicess/Utilities";
+
  
 
 const ExpCard = (props:any) => {
@@ -18,7 +20,7 @@ const ExpCard = (props:any) => {
         </div>
 
         <div className="text-sm text-mine-shaft-300">
-          {props.startDate} -{props.endDate}
+          {formateDate(props.startDate)} - {formateDate(props.endDate)}
         </div>
 
       </div>

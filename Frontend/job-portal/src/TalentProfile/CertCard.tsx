@@ -1,3 +1,5 @@
+import { formateDate } from "../Servicess/Utilities";
+
 const CertCard = (props:any) => {
   return (
     <div className="flex justify-between ">
@@ -12,7 +14,7 @@ const CertCard = (props:any) => {
       </div>
 
       <div className="flex flex-col text-end">
-        <div className="text-sm text-mine-shaft-300">{props.issueDate}</div>
+        <div className="text-sm text-mine-shaft-300">{ formateDate(props.issueDate)}</div>
         <div className="text-sm text-mine-shaft-300">Id: {props.certificateId}</div>
       </div>
     </div>

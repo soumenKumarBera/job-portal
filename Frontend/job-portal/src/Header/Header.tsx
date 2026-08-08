@@ -16,13 +16,17 @@ const Header = () => {
   const dispatch = useDispatch()
 
     useEffect(() => {
-      getProfile(user.id)
+      if(user && user.id){
+          getProfile(user.id)
         .then((res: any) => {
           dispatch(profileAction.setProfile(res));
         })
         .catch((err: any) => {
           console.log(err);
         });
+
+      }
+    
     }, []);
 
   return location.pathname != "/signup" && location.pathname != "/login"? (
