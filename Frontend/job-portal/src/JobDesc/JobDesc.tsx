@@ -87,7 +87,7 @@ const JobDecs = (props: any) => {
         <div className="flex flex-col gap-3 items-center">
           {(props.edit ||
             !applied )&& (
-              <Link to={`/apply-job/${props.id}`}>
+              <Link to={props.edit?`/post-job/${props.id}`:`/apply-job/${props.id}`}>
                 <Button
                   variant="light"
                   className="!text-bright-sun-400"
