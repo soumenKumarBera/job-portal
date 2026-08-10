@@ -61,7 +61,7 @@ const TalentOnly = (props: any) => {
         </div>
       ) : (
         <div className="flex justify-between text-sm ">
-          <div className="font-semibold">23LPA</div>
+          <div className="font-semibold">Exp: {props.totalExp? props.totalExp : 1} Years</div>
           <div className="flex items-center gap-1 text-mine-shaft-300">
             <IconMapPin className="size-5" stroke={1.5} /> {props.location}
           </div>

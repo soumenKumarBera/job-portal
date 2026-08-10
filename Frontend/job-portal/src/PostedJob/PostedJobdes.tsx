@@ -12,6 +12,7 @@ const PostedJobDes = (props: any) => {
 
   const handelTabChange = (value: any) => {
     setTab(value);
+    console.log(props);
 
     if (value == "Applicants") {
       setArr(
