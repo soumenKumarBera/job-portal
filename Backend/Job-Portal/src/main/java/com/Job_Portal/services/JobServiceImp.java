@@ -23,6 +23,7 @@ public class JobServiceImp implements  JobServices{
 
     @Override
     public JobDTO postJob(JobDTO jobDTO) throws Exception {
+        System.out.println(jobDTO.getId());
 
         if(jobDTO.getId() == 0){
             jobDTO.setId(Utilities.getNextSequence("jobs"));

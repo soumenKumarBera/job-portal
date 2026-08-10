@@ -6,19 +6,43 @@ import TextEditor from "./TextEditor";
 import { Text, Avatar, Button } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { isNotEmpty, useForm } from "@mantine/form";
-import { postJob } from "../Servicess/jobService";
+import { getJob, postJob } from "../Servicess/jobService";
 import {
   errorNotification,
   successNotification,
 } from "../Servicess/NotificationService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const PostJob = () => {
+  const {id} =  useParams();
+  const [editorData, setEditorData] = useState(content);
   const select = fields;
   const navigate = useNavigate();
 
   const profile = useSelector((state: any) => state.profile);
+
+  useEffect(() =>{
+    window.scrollTo(0, 0);
+
+    if(id != "0"){
+      getJob(id).then((res) =>{
+        form.setValues(res);
+        setEditorData(res.description);
+
+      }).catch((err) => {
+        console.log(err);
+      })
+
+    }else {
+      form.reset();
+      setEditorData(content);
+    }
+
+
+
+  },[id]);
 
   const form = useForm({
     mode: "controlled",
@@ -54,7 +78,7 @@ const PostJob = () => {
       return;
     }
 
-    postJob({ ...form.getValues(), postedBy: profile.id, jobStatus: "ACTIVE" })
+    postJob({ ...form.getValues(), id,  postedBy: profile.id, jobStatus: "ACTIVE" })
       .then((res) => {
         console.log("confrom");
         successNotification("Success", "Job Posted SucessFully");
@@ -67,7 +91,8 @@ const PostJob = () => {
   };
 
   const handelDraft = () => {
-    postJob({ ...form.getValues(), postedBy: profile.id, jobStatus: "DRAFT" })
+    console.log(form.getValues());
+    postJob({ ...form.getValues(), id, postedBy: profile.id, jobStatus: "DRAFT" })
       .then((res) => {
         console.log("confrom");
         successNotification("Success", "Job Saved as Draft SucessFully");
@@ -131,7 +156,7 @@ const PostJob = () => {
             Job Description <span className="text-red-500">*</span>
           </div>
 
-          <TextEditor form={form} name="description" />
+          <TextEditor form={form} data={editorData} name="description" />
         </div>
 
         <div className="flex gap-4 justify-around">
