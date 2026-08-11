@@ -9,10 +9,11 @@ import {
   Input,
 } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-
-
+import { useDispatch } from "react-redux";
+import { filterAction } from "../Slices/FilterSlice";
 
 const MultinInput = (props: any) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setData(props.options);
@@ -35,7 +36,18 @@ const MultinInput = (props: any) => {
     if (val === "$create") {
       setData((current) => [...current, search]);
       setValue((current) => [...current, search]);
+      dispatch(
+        filterAction.updateFilter({ [props.title]: [...value, search] }),
+      );
     } else {
+      dispatch(
+        filterAction.updateFilter({
+          [props.title]: value.includes(val)
+            ? value.filter((v) => v !== val)
+            : [...value, val],
+        }),
+      );
+
       setValue((current) =>
         current.includes(val)
           ? current.filter((v) => v !== val)
@@ -44,8 +56,16 @@ const MultinInput = (props: any) => {
     }
   };
 
-  const handleValueRemove = (val: string) =>
+  const handleValueRemove = (val: string) =>{
+     dispatch(
+        filterAction.updateFilter({
+          [props.title]: value.filter((v) => v !== val)}
+           
+     ));
+
     setValue((current) => current.filter((v) => v !== val));
+
+  }
 
   const values = value.slice(0, 1).map((item) => (
     <Pill key={item} withRemoveButton onRemove={() => handleValueRemove(item)}>
@@ -53,22 +73,24 @@ const MultinInput = (props: any) => {
     </Pill>
   ));
 
-  const options = data.filter((item) => item.toLowerCase().includes(search.trim().toLowerCase())).map((item) => (
-    <Combobox.Option value={item} key={item} active={value.includes(item)}>
-      <Group gap="sm">
-        <Checkbox
-          size="xs"
-          color="bright-sun.4"
-          checked={value.includes(item)}
-          onChange={() => {}}
-          aria-hidden
-          tabIndex={-1}
-          style={{ pointerEvents: "none" }}
-        />
-        <span>{item}</span>
-      </Group>
-    </Combobox.Option>
-  ));
+  const options = data
+    .filter((item) => item.toLowerCase().includes(search.trim().toLowerCase()))
+    .map((item) => (
+      <Combobox.Option value={item} key={item} active={value.includes(item)}>
+        <Group gap="sm">
+          <Checkbox
+            size="xs"
+            color="bright-sun.4"
+            checked={value.includes(item)}
+            onChange={() => {}}
+            aria-hidden
+            tabIndex={-1}
+            style={{ pointerEvents: "none" }}
+          />
+          <span>{item}</span>
+        </Group>
+      </Combobox.Option>
+    ));
 
   return (
     <Combobox
@@ -83,8 +105,7 @@ const MultinInput = (props: any) => {
           onClick={() => combobox.openDropdown()}
           leftSection={
             <div className="text-sm bg-mine-shaft-900 text-bright-sun-400 rounded-full p-1 mr-2">
-              <props.icon/>
-              
+              <props.icon />
             </div>
           }
         >
@@ -95,10 +116,10 @@ const MultinInput = (props: any) => {
                 {value.length > 1 && <Pill>+{value.length - 1} more</Pill>}
               </>
             ) : (
-              <Input.Placeholder className = "text-mine-shaft-300" >{props.title}</Input.Placeholder>
+              <Input.Placeholder className="text-mine-shaft-300">
+                {props.title}
+              </Input.Placeholder>
             )}
-
-  
           </Pill.Group>
         </PillsInput>
       </Combobox.DropdownTarget>

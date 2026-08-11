@@ -6,8 +6,29 @@ import { RangeSlider } from "@mantine/core";
 import MultinInput from "../Findjobs/MultinInput";
 import { IconUserCircle } from '@tabler/icons-react';
 import { Input } from '@mantine/core';
+import { useDispatch } from "react-redux";
+import { filterAction } from "../Slices/FilterSlice";
 const SearchBar = () => {
-  const [value, setValue] = useState<[number, number]>([1, 100]);
+  const [value, setValue] = useState<[number, number]>([0, 50]);
+
+  const [name, setName] = useState('');
+
+  const dispatch = useDispatch();
+
+  const handelChange = (name:any, event:any) =>{
+    if(name == "exp") dispatch(filterAction.updateFilter({exp:event}))
+      else{
+         dispatch(filterAction.updateFilter({name:event.target.value}))
+        setName(event.target.value);
+
+    }
+
+
+
+
+  }
+
+
   return (
     <div className="px-5 py-8 flex items-center !text-mine-shaft-100">
      
@@ -15,7 +36,7 @@ const SearchBar = () => {
       <div>
         <IconUserCircle stroke={2} className="text-bright-sun-400 bg-mine-shaft-900 rounded-full p-1 mr-2 size-8" />
       </div>
-      <Input className = "mr-2 [&_input]:!text-mine-shaft-300" variant="unstyled" placeholder="Talent Name" />
+      <Input defaultValue={name} onChange={(e) => handelChange("name", e)} className = "mr-2 [&_input]:!text-mine-shaft-300" variant="unstyled" placeholder="Talent Name" />
      </div>
       <Divider mr="xs" size="sm" orientation="vertical" />
       {searchFields.map((data, index) => (
@@ -29,19 +50,23 @@ const SearchBar = () => {
 
       <div className="w-1/5 [&_.mantine-RangeSlider-label]:!translate-y-10">
         <div className="flex justify-between">
-          <div>Salary</div>
+          <div>Experience (Year)</div>
           <div>
-            &#8377;{value[0]} LPA - &#8377;{value[1]} LPA
+            {value[0]} - {value[1]} 
           </div>
         </div>
         <RangeSlider
+        onChangeEnd={(e) => handelChange("exp", e)}
           size="xs"
           color="bright-sun.4"
           labelTransitionProps={{
             transition: "skew-down",
             duration: 150,
             timingFunction: "linear",
+          
           }}
+          min={1}
+          max={50}
           value={value}
      
           onChange={setValue}
