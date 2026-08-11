@@ -4,15 +4,17 @@ import TalentCard from "./TalentCard";
 import { useEffect, useState } from "react";
 import { getProfileAll } from "../Servicess/ProfileService";
 import TalentOnly from "./TalentOnly";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { filterAction } from "../Slices/FilterSlice";
 
 const Talents = () => {
   const [talents, setTalentas] = useState<any>([]);
-
+ const dispatch = useDispatch();
   const filter = useSelector((state: any) => state.filter);
   const [filteredTalentas, setFilteredTalents] = useState<any>([]);
 
   useEffect(() => {
+    dispatch(filterAction.resetFilter())
     getProfileAll()
       .then((res) => {
         setTalentas(res);
@@ -24,7 +26,7 @@ const Talents = () => {
 
   useEffect(() => {
     let filterTalent = talents;
-    console.log(filter);
+   
 
     if (filter.name) {
       filterTalent = filterTalent.filter((talent: any) =>
@@ -75,7 +77,7 @@ if (filter.exp?.length === 2) {
 }
 
     setFilteredTalents(filterTalent);
-    console.log(filter);
+   
   }, [filter, talents]);
 
   return (
@@ -87,9 +89,9 @@ if (filter.exp?.length === 2) {
       </div>
 
       <div className="flex mt-10 flex-wrap gap-5 justify-center">
-        {filteredTalentas?.map((talent: any, index: any) => (
+        {filteredTalentas.length? filteredTalentas.map((talent: any, index: any) => (
           <TalentOnly key={index} {...talent} />
-        ))}
+        )) : <div className="text-2xl font-semibold"> No Talents found</div>}
       </div>
     </div>
   );
