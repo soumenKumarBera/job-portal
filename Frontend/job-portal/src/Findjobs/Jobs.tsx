@@ -12,7 +12,7 @@ const Jobs = () => {
 
     getAllJobs()
     .then(res =>{
-      seetJobList(res);
+      seetJobList(res.filter((job:any) => job.jobStatus == 'ACTIVE'));
     }).catch( error => {
 
       console.log(error);
