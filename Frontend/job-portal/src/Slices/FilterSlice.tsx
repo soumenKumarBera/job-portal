@@ -8,7 +8,7 @@ name: "filter",
     updateFilter: (state, action) => {
 
       state = {...state, ...action.payload};
-      console.log(state);
+      // console.log(state);
       return state;
     },
 

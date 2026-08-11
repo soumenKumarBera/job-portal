@@ -18,8 +18,11 @@ import {
 } from "../Servicess/NotificationService";
 import { formateInterviewTime, openBase64PDF } from "../Servicess/Utilities";
 import { profile } from "../Data/TalentData";
+import { useSelector } from "react-redux";
 
 const TalentOnly = (props: any) => {
+
+
   
   return (
     <div className="bg-mine-shaft-700 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !bright-sun-400 cursor-pointer mb-5">
