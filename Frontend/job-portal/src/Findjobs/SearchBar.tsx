@@ -3,8 +3,21 @@ import { dropdownData } from "../Data/JobsData";
 import { Divider } from "@mantine/core";
 import { useState } from "react";
 import { RangeSlider } from "@mantine/core";
+import { useDispatch } from "react-redux";
+import { filterAction } from "../Slices/FilterSlice";
 const SearchBar = () => {
   const [value, setValue] = useState<[number, number]>([1, 100]);
+
+  const dispatch = useDispatch();
+
+  const handelChange = (name:any, value:any) => {
+    dispatch(filterAction.updateFilter({package:value}))
+
+
+
+  }
+   
+
   return (
     <div className="px-5 py-8 flex ">
       {dropdownData.map((data, index) => (
@@ -24,6 +37,7 @@ const SearchBar = () => {
           </div>
         </div>
         <RangeSlider
+        onChangeEnd={(e) => handelChange("package", e)}
           size="xs"
           color="bright-sun.4"
           labelTransitionProps={{
@@ -32,6 +46,8 @@ const SearchBar = () => {
             timingFunction: "linear",
           }}
           value={value}
+          min={1}
+          max ={100}
      
           onChange={setValue}
         />
