@@ -6,15 +6,18 @@ import { getProfileAll } from "../Servicess/ProfileService";
 import TalentOnly from "./TalentOnly";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAction } from "../Slices/FilterSlice";
+import { sortAction } from "../Slices/sortSlice";
 
 const Talents = () => {
   const [talents, setTalentas] = useState<any>([]);
  const dispatch = useDispatch();
   const filter = useSelector((state: any) => state.filter);
+    const stateSort = useSelector((state: any) => state.sort);
   const [filteredTalentas, setFilteredTalents] = useState<any>([]);
 
   useEffect(() => {
     dispatch(filterAction.resetFilter())
+     dispatch(sortAction.resetSort());
     getProfileAll()
       .then((res) => {
         setTalentas(res);
@@ -23,6 +26,20 @@ const Talents = () => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() =>{
+
+   if(stateSort === "Experience (Low to High)"){
+       setTalentas([...talents].sort((a:any, b:any) => a.totalExp - b.totalExp)) // min to max
+
+    }else if(stateSort === "Experience (High to Low)"){
+       setTalentas([...talents].sort((a:any, b:any) => b.totalExp - a.totalExp)) //max to min 
+
+    }
+
+
+  }, [stateSort]);
+
 
   useEffect(() => {
     let filterTalent = talents;

@@ -104,7 +104,7 @@ const Jobs = () => {
       <div className="flex justify-between ">
         <div className="text-2xl text-mine-shaft-200">Recommended Jobs</div>
         <div>
-          <Sort />
+          <Sort sort = {"job"}/>
         </div>
       </div>
       <div className="mt-10 gap-8 flex flex-wrap justify-center">
