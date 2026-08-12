@@ -7,8 +7,8 @@ name: "sort",
   reducers: {
     updateSort: (state, action) => {
 
-      state = {...state, ...action.payload};
-      // console.log(state);
+      state = action.payload;
+   
       return state;
     },
 

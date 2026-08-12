@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Button, Combobox, useCombobox, Text, Box } from '@mantine/core';
 import { IconAdjustmentsAlt } from '@tabler/icons-react';
+import { useDispatch } from 'react-redux';
+import { sortAction } from '../Slices/sortSlice';
 
 const opt = ['Relevance', 'Most Recent', 'Salary (Low to High)', 'Salary (High to Low)'];
 
 const Sort = () => {
+
+  const dispatch = useDispatch();
   const [selectedItem, setSelectedItem] = useState<string | null>('Relevance');
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -27,6 +31,7 @@ const Sort = () => {
     
         onOptionSubmit={(val) => {
           setSelectedItem(val);
+          dispatch(sortAction.updateSort(val));
           combobox.closeDropdown();
         }}
       >

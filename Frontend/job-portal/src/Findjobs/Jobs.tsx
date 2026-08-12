@@ -5,24 +5,44 @@ import { useEffect, useState } from "react";
 import { getAllJobs } from "../Servicess/jobService";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAction } from "../Slices/FilterSlice";
+import { sortAction } from "../Slices/sortSlice";
 
 const Jobs = () => {
   const dispatch = useDispatch();
   const stateFilter = useSelector((state: any) => state.filter);
+  const stateSort = useSelector((state: any) => state.sort);
+
   const [jobListFilter, setJobListFilter] = useState<any[]>([]);
 
-  const [jobList, seetJobList] = useState([{}]);
+  const [jobList, setJobList] = useState([{}]);
 
   useEffect(() => {
      dispatch(filterAction.resetFilter())
+     dispatch(sortAction.resetSort());
     getAllJobs()
       .then((res) => {
-        seetJobList(res.filter((job: any) => job.jobStatus == "ACTIVE"));
+        setJobList(res.filter((job: any) => job.jobStatus == "ACTIVE"));
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  useEffect(() =>{
+
+    if(stateSort === "Most Recent"){
+      setJobList([...jobList].sort((a: any, b: any) => new Date(b.postTime).getTime() - new Date(a.postTime).getTime()))
+
+    }else if(stateSort === "Salary (Low to High)"){
+       setJobList([...jobList].sort((a:any, b:any) => a.packageOffered - b.packageOffered))
+
+    }else if(stateSort === "Salary (High to Low)"){
+       setJobList([...jobList].sort((a:any, b:any) => b.packageOffered - a.packageOffered))
+
+    }
+
+
+  }, [stateSort]);
 
   useEffect(() => {
     let filterJob = jobList;
