@@ -1,4 +1,4 @@
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon, NumberInput } from "@mantine/core";
 import {
   IconBriefcase,
   IconCheck,
@@ -35,6 +35,7 @@ const Info = (props: any) => {
         jobTitle: profile.jobTitle,
         company: profile.company,
         location: profile.location,
+        totalExp: profile.totalExp,
       });
     } else {
       setEdit(false)
@@ -48,6 +49,7 @@ const Info = (props: any) => {
       jobTitle: "",
       company: "",
       location: "",
+      totalExp: 1,
     },
   });
 
@@ -93,7 +95,11 @@ const Info = (props: any) => {
             <SelectInput {...select[0]} form={form} name="jobTitle" />
             <SelectInput {...select[1]} form={form} name="company" />
           </div>
-          <SelectInput {...select[2]} form={form} name="location" />
+          <div className="flex gap-10 [&>*]:w-1/2">
+           <SelectInput {...select[2]} form={form} name="location" />
+            <NumberInput label= "Experience" hideControls clampBehavior="strict" min={0} max={50} {...form.getInputProps('totalExp')}  />
+          </div>
+         
         </>
       ) : (
         <>
@@ -105,6 +111,9 @@ const Info = (props: any) => {
           </div>
           <div className="flex items-center gap-1 text-mine-shaft-300">
             <IconMapPin className="size-5" stroke={1.5} /> {profile.location}
+          </div>
+           <div className="flex items-center gap-1 text-mine-shaft-300">
+            <IconBriefcase className="size-5" stroke={1.5} />Experience {profile.totalExp} Years
           </div>
         </>
       )}
