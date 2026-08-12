@@ -3,15 +3,18 @@ import Sort from "./Sort";
 // import { jobList } from "../Data/JobsData";
 import { useEffect, useState } from "react";
 import { getAllJobs } from "../Servicess/jobService";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { filterAction } from "../Slices/FilterSlice";
 
 const Jobs = () => {
+  const dispatch = useDispatch();
   const stateFilter = useSelector((state: any) => state.filter);
   const [jobListFilter, setJobListFilter] = useState<any[]>([]);
 
   const [jobList, seetJobList] = useState([{}]);
 
   useEffect(() => {
+     dispatch(filterAction.resetFilter())
     getAllJobs()
       .then((res) => {
         seetJobList(res.filter((job: any) => job.jobStatus == "ACTIVE"));
