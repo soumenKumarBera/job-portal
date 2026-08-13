@@ -1,12 +1,10 @@
 package com.Job_Portal.services;
 
-import com.Job_Portal.dto.AccountType;
-import com.Job_Portal.dto.LoginDto;
-import com.Job_Portal.dto.ResponseDto;
-import com.Job_Portal.dto.UserDto;
+import com.Job_Portal.dto.*;
 import com.Job_Portal.entity.OTP;
 import com.Job_Portal.entity.User;
 import com.Job_Portal.jobPortalException.JobPortalException;
+import com.Job_Portal.repositry.NotificationRepository;
 import com.Job_Portal.repositry.OtpRepository;
 import com.Job_Portal.repositry.UserRepository;
 import com.Job_Portal.utility.Data;
@@ -42,6 +40,9 @@ public class UserServiceImpl implements UserServices{
 
     @Autowired
     private ProfileService profileService;
+
+    @Autowired
+    private NotificationService notificationService;
 
 
 
@@ -132,11 +133,19 @@ public class UserServiceImpl implements UserServices{
     }
 
     @Override
-    public ResponseDto changePassword(LoginDto loginDto) throws JobPortalException {
+    public ResponseDto changePassword(LoginDto loginDto) throws Exception {
         User user =  userRepository.findByEmail(loginDto.getEmail()).orElseThrow(() -> new JobPortalException("USER_NOT-FOUND"));
 
         user.setPassword(passwordEncoder.encode(loginDto.getPassword()));
         userRepository.save(user);
+
+
+        NotificationDto noti = new NotificationDto();
+        noti.setUserId(user.getId());
+        noti.setMessage("Password Reset Successfully");
+        noti.setAction("PassWord Reset");
+        notificationService.sendNotification(noti);
+
         return new ResponseDto("Password change Successfully...");
     }
 
