@@ -2,7 +2,7 @@ import { Indicator, Menu, Notification, Stack } from "@mantine/core";
 import { IconBell } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getNotification, readNotification } from "../Servicess/NotiServices";
 import { error } from "console";
 import { notifications } from "@mantine/notifications";
@@ -13,7 +13,10 @@ const NotiMenu = () => {
   const [opened, setOpened] = useState(false);
   const [notification, setNotification] = useState<any>([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+  
     getNotification(user.id)
       .then((res) => {
         console.log(res);
@@ -44,7 +47,7 @@ const NotiMenu = () => {
     <Menu shadow="md" width={400} opened={opened} onChange={setOpened}>
       <Menu.Target>
         <div className="flex gap-2 items-center cursor-pointer">
-          <Indicator processing color="bright-sun.4" size={9} offset={5}>
+          <Indicator disabled = {notification <= 0} processing color="bright-sun.4" size={9} offset={5}>
             <IconBell stroke={2} />
           </Indicator>
         </div>
@@ -56,6 +59,7 @@ const NotiMenu = () => {
         <div className="flex flex-col gap-1">
           {notification.map((noti: any, index: any) => (
             <Notification
+            onClick={() =>{ navigate(noti.route);setOpened(false); unread(index)}}
               key={index}
               className=" hover:bg-mine-shaft-900 cursor-pointer p-2 "
               color="teal"
