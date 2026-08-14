@@ -33,7 +33,7 @@ public class NotificationServiceImpl implements NotificationService{
     public List<Notification> grtUserIdNotification(Long userId) {
 
 
-        return notificationRepository.findByUserId(userId, NotificationStatus.UNREAD);
+        return notificationRepository.findByUserIdAndStatus(userId, NotificationStatus.UNREAD);
     }
 
     @Override

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface NotificationRepository extends MongoRepository<Notification, Long> {
 
-    public List<Notification> findByUserId(Long id, NotificationStatus status);
+    public List<Notification> findByUserIdAndStatus(Long id, NotificationStatus status);
 }
