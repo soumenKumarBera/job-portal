@@ -3,6 +3,7 @@ package com.Job_Portal.services;
 import com.Job_Portal.dto.NotificationDto;
 import com.Job_Portal.dto.NotificationStatus;
 import com.Job_Portal.entity.Notification;
+import com.Job_Portal.jobPortalException.JobPortalException;
 import com.Job_Portal.repositry.NotificationRepository;
 import com.Job_Portal.utility.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,18 @@ public class NotificationServiceImpl implements NotificationService{
 
 
         return notificationRepository.findByUserId(userId, NotificationStatus.UNREAD);
+    }
+
+    @Override
+    public void readNotification(Long id) throws JobPortalException {
+
+        Notification noti = notificationRepository.findById(id).orElseThrow(()-> new JobPortalException("NO_NOTIFICATION_FOUND"));
+
+        noti.setStatus(NotificationStatus.READ);
+        notificationRepository.save(noti);
+
+
+
+
     }
 }
