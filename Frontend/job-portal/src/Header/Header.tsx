@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProfile } from "../Servicess/ProfileService";
 import { profileAction } from "../Slices/ProfileSlice";
+import NotiMenu from "./NotiMenu";
 
 const Header = () => {
   // ata dia cuurent hook bujte parbo
@@ -45,9 +46,9 @@ const Header = () => {
           <IconSettings stroke={2} />
         </div> */}
         <div className="bg-mine-shaft-900 rounded-full p-2">
-          <Indicator processing color="bright-sun.4" size={9} offset={5}>
-            <IconBell stroke={2} />
-          </Indicator>
+         
+          {user ? <NotiMenu /> : <></> }        
+         
         </div>
       </div>
     </div>
