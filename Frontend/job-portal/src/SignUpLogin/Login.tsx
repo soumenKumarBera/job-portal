@@ -21,6 +21,8 @@ import {
   successNotification,
 } from "../Servicess/NotificationService";
 import { setUser } from "../Slices/UserSlice";
+import { loginAuth } from "../Servicess/AuthService";
+import { setAuth } from "../Slices/AuthSlice";
 
 const form = {
   email: "",
@@ -56,14 +58,14 @@ const Login = () => {
 
     setFormError(newFormError);
 
-    loginUser(data)
+    loginAuth(data)
       .then((response) => {
         successNotification("Login Successful", "Redirecting to HomePage...");
 
         setTimeout(() => {
           setLoading(false);
           navigate("/home");
-          dispatch(setUser(response));
+          dispatch(setAuth(response));
         }, 4000);
       })
       .catch((error) => {
