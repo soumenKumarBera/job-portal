@@ -23,6 +23,7 @@ import {
 import { setUser } from "../Slices/UserSlice";
 import { loginAuth } from "../Servicess/AuthService";
 import { setAuth } from "../Slices/AuthSlice";
+import { jwtDecode } from "jwt-decode";
 
 const form = {
   email: "",
@@ -62,10 +63,15 @@ const Login = () => {
       .then((response) => {
         successNotification("Login Successful", "Redirecting to HomePage...");
 
+        dispatch(setAuth(response.jwt));
+          const decode =jwtDecode(response.jwt);
+          console.log(decode);
+          dispatch(setUser({...decode, email:decode.sub}))
         setTimeout(() => {
           setLoading(false);
+
           navigate("/home");
-          dispatch(setAuth(response));
+          
         }, 4000);
       })
       .catch((error) => {
