@@ -1,5 +1,6 @@
 package com.Job_Portal.dto;
 
+import com.Job_Portal.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -36,4 +37,9 @@ public class UserDto {
 
     private AccountType accountType;
     private Long profileId;
+
+
+    public User toEntity(){
+        return  new User(this.id, this.name, this.email, this.password,accountType, this.profileId);
+    }
 }

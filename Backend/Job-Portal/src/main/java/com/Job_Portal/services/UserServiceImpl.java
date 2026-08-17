@@ -149,6 +149,15 @@ public class UserServiceImpl implements UserServices{
         return new ResponseDto("Password change Successfully...");
     }
 
+    @Override
+    public UserDto getUserByEmail(String email) throws JobPortalException {
+
+      return   userRepository.findByEmail(email).orElseThrow(() -> new JobPortalException("USER_NOT-FOUND")).toDto();
+
+
+
+    }
+
     @Scheduled(fixedRate = 3000)
     public void removeExpiredOTPs(){
         LocalDateTime expired = LocalDateTime.now().minusMinutes(5);

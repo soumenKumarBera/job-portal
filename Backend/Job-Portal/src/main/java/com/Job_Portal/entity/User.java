@@ -2,6 +2,7 @@ package com.Job_Portal.entity;
 
 import com.Job_Portal.dto.AccountType;
 
+import com.Job_Portal.dto.UserDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -36,4 +37,7 @@ public class User {
     private AccountType accountType;
     private Long profileId;
 
+    public UserDto toDto(){
+        return  new UserDto(this.id, this.name, this.email, this.password,accountType, this.profileId);
+    }
 }
