@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserServices{
 
         userDto.setId(Utilities.getNextSequence("users"));
 
-        profileService.createProfile(userDto.getEmail());
+       Long profileId = profileService.createProfile(userDto.getEmail());
 
 
         User user = User.builder()
@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserServices{
                 .email(userDto.getEmail())
                 .accountType( userDto.getAccountType())
                 .password(passwordEncoder.encode(userDto.getPassword()))
+                .profileId(profileId)
                 .build();
         //user save in database
         User userSave = userRepository.save(user);

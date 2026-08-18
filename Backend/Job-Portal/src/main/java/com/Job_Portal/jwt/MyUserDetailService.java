@@ -29,7 +29,7 @@ public class MyUserDetailService implements UserDetailsService {
 
                 UserDto userDto = dto.get();
 
-                return new CustomUserDetails(userDto.getId(),userDto.getName(),userDto.getEmail(),userDto.getPassword(), userDto.getAccountType() ,new ArrayList<>());
+                return new CustomUserDetails(userDto.getId(),userDto.getName(),userDto.getEmail(),userDto.getPassword(),userDto.getProfileId(), userDto.getAccountType() ,new ArrayList<>());
 
 
 

@@ -41,6 +41,7 @@ public class JwtHelper {
         clams.put("id", customUserDetails.getId());
         clams.put("name", customUserDetails.getName());
         clams.put("accountType",customUserDetails.getAccountType());
+        clams.put("profileId",customUserDetails.getProfileId());
         clams.put("roles", customUserDetails.getAuthorities());
 
         String token = Jwts.builder()
