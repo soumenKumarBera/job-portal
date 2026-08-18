@@ -4,8 +4,19 @@ const setItem = (key:string, value:any) => {
 
 }
 
+const setToken = (key:string, value:any) => {
+   localStorage.setItem(key, value);
+
+}
+
 const getItem =(key:string) =>{
-  return JSON.parse(localStorage.getItem(key) as string);
+   const value = localStorage.getItem(key);
+
+  if (value === null) {
+    return null;
+  }
+
+  return JSON.parse(value);
 
 }
 
@@ -15,4 +26,4 @@ localStorage.removeItem(key);
 
 }
 
-export {setItem, getItem, removeItem};
+export {setItem, getItem, removeItem,setToken};

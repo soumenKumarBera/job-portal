@@ -1,9 +1,9 @@
-import axios from "axios"
-const baseUrl = "http://localhost:8080/users/"
+import axiosInstance from "../Intercepter/AxiosIntercepter"
+
 
 const registerUser = async (user: any) => {
 
-  return axios.post(`${baseUrl}register`, user)
+  return axiosInstance.post(`/users/register`, user)
   .then((response) => response.data)
   .catch((error) => {throw error})
 
@@ -11,7 +11,7 @@ const registerUser = async (user: any) => {
 
 const loginUser = async (login: any) => {
 
-  return axios.post(`${baseUrl}login`, login)
+  return axiosInstance.post(`/users/login`, login)
   .then((response) => response.data)
   .catch((error) => {throw error})
 
@@ -19,7 +19,7 @@ const loginUser = async (login: any) => {
 
 const sendOtp = async (email: any) => {
 
-  return axios.post(`${baseUrl}sendOtp/${email}`)
+  return axiosInstance.post(`/users/sendOtp/${email}`)
   .then((response) => response.data)
   .catch((error) => {throw error})
 
@@ -27,14 +27,14 @@ const sendOtp = async (email: any) => {
 
 const verifyOtp = async (email:any,otp: any) => {
 
-  return axios.get(`${baseUrl}verifyOtp/${email}/${otp}`)
+  return axiosInstance.get(`/users/verifyOtp/${email}/${otp}`)
   .then((response) => response.data)
   .catch((error) => {throw error})
 }
 
 const changePass = async (email:any,password: any) => {
 
-  return axios.post(`${baseUrl}changePass`,{email,password})
+  return axiosInstance.post(`/users/changePass`,{email,password})
   .then((response) => response.data)
   .catch((error) => {throw error})
 

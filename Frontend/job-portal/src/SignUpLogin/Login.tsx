@@ -59,10 +59,12 @@ const Login = () => {
 
     setFormError(newFormError);
 
+   
+
     loginAuth(data)
       .then((response) => {
         successNotification("Login Successful", "Redirecting to HomePage...");
-
+        
         dispatch(setAuth(response.jwt));
           const decode =jwtDecode(response.jwt);
           console.log(decode);
@@ -75,6 +77,7 @@ const Login = () => {
         }, 4000);
       })
       .catch((error) => {
+        console.log(error);
         errorNotification("Login Failed", error.response.data.errorMessage);
         setLoading(false);
       });

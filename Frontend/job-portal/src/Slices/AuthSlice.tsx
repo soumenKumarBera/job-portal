@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getItem, removeItem, setItem } from "../Servicess/LocalStorageServices";
+import { getItem, removeItem, setItem, setToken } from "../Servicess/LocalStorageServices";
 
 const AuthSlice = createSlice({
   name:"auth",
-  initialState:getItem("auth"),
+  initialState:localStorage.getItem("auth"),
   reducers:{
     setAuth:(state, action) =>{
-      setItem("auth", action.payload);
-      state = getItem("auth")
-      return state;
+      setToken("auth", action.payload);
+     
+      return action.payload;
 
     },
 

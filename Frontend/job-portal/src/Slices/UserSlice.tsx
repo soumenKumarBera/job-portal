@@ -7,8 +7,8 @@ const UserSlice = createSlice({
   reducers:{
     setUser:(state, action) =>{
       setItem("user", action.payload);
-      state = getItem("user")
-      return state;
+      
+      return action.payload;
 
     },
 

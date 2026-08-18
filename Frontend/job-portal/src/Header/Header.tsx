@@ -17,16 +17,16 @@ const Header = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user && user.id) {
-      getProfile(user.id)
+   
+      getProfile(user?.profileId)
         .then((res: any) => {
           dispatch(profileAction.setProfile(res));
         })
         .catch((err: any) => {
           console.log(err);
         });
-    }
-  }, []);
+    
+  }, [user]);
 
   return location.pathname != "/signup" && location.pathname != "/login" ? (
     <div className="w-full bg-mine-shaft-950 text-white h-20 flex justify-between p-6 items-center">

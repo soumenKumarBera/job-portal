@@ -1,9 +1,10 @@
-import axios from "axios";
-const base_url = "http://localhost:8080/job/";
+import axiosInstance from "../Intercepter/AxiosIntercepter";
+
+
 
 const postJob = async (job: any) => {
-  return axios
-    .post(`${base_url}post`, job)
+  return axiosInstance
+    .post(`/job/post`, job)
     .then((result) => result.data)
     .catch((error) => {
       throw error;
@@ -11,8 +12,8 @@ const postJob = async (job: any) => {
 };
 
 const getAllJobs = async () => {
-  return axios
-    .get(`${base_url}getAll`)
+  return axiosInstance
+    .get(`/job/getAll`)
     .then((result) => result.data)
     .catch((error) => {
       throw error;
@@ -20,8 +21,8 @@ const getAllJobs = async () => {
 };
 
 const getJob = async (id: any) => {
-  return axios
-    .get(`${base_url}get/${id}`)
+  return axiosInstance
+    .get(`/job/get/${id}`)
     .then((result) => result.data)
     .catch((error) => {
       throw error;
@@ -29,8 +30,8 @@ const getJob = async (id: any) => {
 };
 
 const ApplyJob = async (id: any, applicant: any) => {
-  return axios
-    .post(`${base_url}apply/${id}`, applicant)
+  return axiosInstance
+    .post(`/job/apply/${id}`, applicant)
     .then((result) => result.data)
     .catch((error) => {
       throw error;
@@ -38,8 +39,8 @@ const ApplyJob = async (id: any, applicant: any) => {
 };
 
 const getJobPostedBy = async (id: any) => {
-  return axios
-    .get(`${base_url}postedBy/${id}`)
+  return axiosInstance
+    .get(`/job/postedBy/${id}`)
     .then((result) => result.data)
     .catch((error) => {
       throw error;
@@ -47,8 +48,8 @@ const getJobPostedBy = async (id: any) => {
 };
 
 const changeAppStatus = async (application: any) => {
-  return axios
-    .post(`${base_url}changeApplicationStatus`, application)
+  return axiosInstance
+    .post(`/job/changeApplicationStatus`, application)
     .then((result) => result.data)
     .catch((error) => {
       throw error;

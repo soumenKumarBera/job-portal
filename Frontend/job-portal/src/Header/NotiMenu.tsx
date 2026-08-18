@@ -16,8 +16,8 @@ const NotiMenu = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-  
-    getNotification(user.id)
+    console.log(user);
+    getNotification(user.profileId)
       .then((res) => {
         console.log(res);
         setNotification(res);
