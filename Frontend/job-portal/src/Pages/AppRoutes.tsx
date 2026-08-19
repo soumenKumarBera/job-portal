@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import FindJobsPage from "./FindJobsPage";
 import FindTalentPage from "./FindTalentPage";
@@ -14,6 +14,8 @@ import SignUpPage from "./SignUpPage";
 import HomePage from "./HomePage";
 import Footer from "../Footer/Footer";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+
 
 
 
@@ -21,9 +23,13 @@ import { useSelector } from "react-redux";
 
 const AppRoutes = () => {
 
+  
+
       const user = useSelector((state:any) => state.user);
 
   return  <BrowserRouter>
+  
+     
           <div className=" relative">
             <Header />
             <Routes>
@@ -38,8 +44,8 @@ const AppRoutes = () => {
               <Route path="/posted-job/:id" element={<PostedJobPage />} />
               <Route path="/job-history" element={<JobHistoryPage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/login" element={user?<Navigate to = "/" />:<SignUpPage />} />
-              <Route path="/signup" element={user?<Navigate to = "/" />:<SignUpPage />} />
+              <Route path="/login" element={<SignUpPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
 
               <Route path="/*" element={<HomePage />} />
             </Routes>

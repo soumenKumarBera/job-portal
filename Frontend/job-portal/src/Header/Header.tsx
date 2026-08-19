@@ -1,23 +1,46 @@
 import { Button, Indicator } from "@mantine/core";
 import { IconSettings, IconBell, IconAnchor } from "@tabler/icons-react";
 import NavLinks from "./NavLink";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProfile } from "../Servicess/ProfileService";
 import { profileAction } from "../Slices/ProfileSlice";
 import NotiMenu from "./NotiMenu";
+import { setupResponseInterceptor } from "../Intercepter/AxiosIntercepter";
+import { jwtDecode } from "jwt-decode";
+import { setUser } from "../Slices/UserSlice";
 
 const Header = () => {
   // ata dia cuurent hook bujte parbo
 
   const user = useSelector((state: any) => state.user);
+  const token = useSelector((state: any) => state.jwt);
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  // useEffect(()=>{
+  //   setupResponseInterceptor(navigate);
+
+  // },[navigate]);
+
+  useEffect(() =>{
+  
+    setupResponseInterceptor(navigate);
+   
+   
+
+  }, [navigate])
 
   useEffect(() => {
-   
+     
+    if(token != ""){
+       const decode = jwtDecode(localStorage.getItem("token") || "");
+    dispatch(setUser({...decode, email:decode.sub}));
+
+    }
       getProfile(user?.profileId)
         .then((res: any) => {
           dispatch(profileAction.setProfile(res));
@@ -26,7 +49,7 @@ const Header = () => {
           console.log(err);
         });
     
-  }, [user]);
+  },[token,navigate]);
 
   return location.pathname != "/signup" && location.pathname != "/login" ? (
     <div className="w-full bg-mine-shaft-950 text-white h-20 flex justify-between p-6 items-center">

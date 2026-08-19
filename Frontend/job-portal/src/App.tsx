@@ -8,7 +8,7 @@ import "@mantine/carousel/styles.css";
 // @ts-ignore: side-effect CSS import has no type declarations
 import "@mantine/tiptap/styles.css";
 import HomePage from "./Pages/HomePage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import FindJobsPage from "./Pages/FindJobsPage";
 import FindTalentPage from "./Pages/FindTalentPage";
 import TalentPrifilePage from "./Pages/TalentProfilePage";
@@ -29,11 +29,16 @@ import { Notifications } from "@mantine/notifications";
 import { Provider } from "react-redux";
 import Store from "./Store";
 import AppRoutes from "./Pages/AppRoutes";
+import { useEffect } from "react";
+import { setupResponseInterceptor } from "./Intercepter/AxiosIntercepter";
 // ‼️ import dates styles after core package styles
 
 // import { IconArrowLeft, IconSettings } from '@tabler/icons-react';
 
 function App() {
+  
+
+
   const theme = createTheme({
     focusRing: "never",
     fontFamilyMonospace: "poppins, sans-serif",
@@ -69,6 +74,7 @@ function App() {
   });
 
   return (
+
     <Provider store={Store}>
       <MantineProvider defaultColorScheme="dark" theme={theme}>
         <Notifications position="top-center" zIndex={1000} />

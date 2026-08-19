@@ -1,5 +1,6 @@
 
 import axios from "axios"
+
 const baseUrl = "http://localhost:8080/auth/"
 
 const loginAuth = async (login: any) => {
@@ -9,4 +10,11 @@ const loginAuth = async (login: any) => {
   .catch((error) => {throw error})
 
 }
+
+const navigateToLogin =(navigate:any) =>{
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  navigate("/login");
+}
+
 export {loginAuth};
