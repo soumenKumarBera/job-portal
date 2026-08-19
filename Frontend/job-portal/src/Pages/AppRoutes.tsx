@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import Header from "../Header/Header";
 import FindJobsPage from "./FindJobsPage";
 import FindTalentPage from "./FindTalentPage";
@@ -15,45 +21,65 @@ import HomePage from "./HomePage";
 import Footer from "../Footer/Footer";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-
-
-
-
-
+import ProtectedRoute from "../Servicess/ProtrctedRoute";
+import PublicRoute from "../Servicess/PublicRoute";
 
 const AppRoutes = () => {
+  const user = useSelector((state: any) => state.user);
 
-  
+  return (
+    <BrowserRouter>
+      <div className=" relative">
+        <Header />
+        <Routes>
+          <Route path="/find-jobs" element={<FindJobsPage />} />
+          <Route path="/find-talent" element={<FindTalentPage />} />
+          <Route path="/jobs/:id" element={<JobdescPage />} />
 
-      const user = useSelector((state:any) => state.user);
+          <Route path="/talent-profile/:id" element={<TalentPrifilePage />} />
+          <Route
+            path="/post-job/:id"
+            element={
+              <ProtectedRoute allowedRole={["EMPLOYER"]}>
+                <PostJobPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/apply-job/:id" element={<ApplyJobPage />} />
+          <Route path="/company/:name" element={<CompanyPage />} />
+          <Route
+            path="/posted-job/:id"
+            element={
+              <ProtectedRoute allowedRole={["EMPLOYER"]}>
+                <PostedJobPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/job-history"
+            element={
+              <ProtectedRoute allowedRole={["APPLICANT"]}>
+                <JobHistoryPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/login" element={<SignUpPage />} />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute>
+                <SignUpPage />
+              </PublicRoute>
+            }
+          />
 
-  return  <BrowserRouter>
-  
-     
-          <div className=" relative">
-            <Header />
-            <Routes>
-              <Route path="/find-jobs" element={<FindJobsPage />} />
-              <Route path="/find-talent" element={<FindTalentPage />} />
-              <Route path="/jobs/:id" element={<JobdescPage />} />
-
-              <Route path="/talent-profile/:id" element={<TalentPrifilePage />} />
-              <Route path="/post-job/:id" element={<PostJobPage />} />
-              <Route path="/apply-job/:id" element={<ApplyJobPage />} />
-              <Route path="/company/:name" element={<CompanyPage />} />
-              <Route path="/posted-job/:id" element={<PostedJobPage />} />
-              <Route path="/job-history" element={<JobHistoryPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/login" element={<SignUpPage />} />
-              <Route path="/signup" element={<SignUpPage />} />
-
-              <Route path="/*" element={<HomePage />} />
-            </Routes>
-            <Footer />
-          </div>
-        </BrowserRouter>
-
-
-}
+          <Route path="/*" element={<HomePage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
+  );
+};
 
 export default AppRoutes;
