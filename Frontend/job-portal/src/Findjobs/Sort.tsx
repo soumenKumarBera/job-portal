@@ -39,7 +39,7 @@ const Sort = (props:any) => {
         }}
       >
         <Combobox.Target>
-          <div onClick= {() => combobox.toggleDropdown()} className = "border border-bright-sun-400 flex items-center px-2 py-1 rounded-xl cursor-pointer gap-2 text-sm">
+          <div onClick= {() => combobox.toggleDropdown()} className = "border border-bright-sun-400 flex items-center px-2 py-1 rounded-xl cursor-pointer gap-2 text-sm xs-mx:text-xs xs-mx:px-1 xsm-mx:my-2">
             {selectedItem } <IconAdjustmentsAlt stroke={2} className="text-bright-sun-400 size-5" />
           </div>
         </Combobox.Target>

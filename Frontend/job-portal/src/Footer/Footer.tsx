@@ -13,8 +13,8 @@ import { useLocation } from "react-router-dom";
 const Footer = () => {
   const location = useLocation();
   return location.pathname != "/signup" && location.pathname != "/login" ? (
-    <div className=" pt-20 pb-5 flex gap-5 justify-around   font-['Poppins']">
-      <div className="w-1/4 flex flex-col gap-4 ">
+    <div className=" pt-20 pb-5 flex gap-5 p-4 justify-around flex-wrap  font-['Poppins']">
+      <div className="w-1/4 flex flex-col gap-4 xs-mx:w-1/2 xsm-mx:w-full  ">
         <div className="flex gap-1.5 items-center text-bright-sun-500">
           <IconAnchor className="size-10" stroke={2.5} />
           <div className="text-3xl font-semibold">JobHook </div>
