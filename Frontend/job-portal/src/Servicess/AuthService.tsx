@@ -17,4 +17,4 @@ const navigateToLogin =(navigate:any) =>{
   navigate("/login");
 }
 
-export {loginAuth};
+export {loginAuth, navigateToLogin};

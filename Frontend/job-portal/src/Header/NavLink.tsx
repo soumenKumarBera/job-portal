@@ -12,7 +12,7 @@ const NavLinks = () => {
 
   const location = useLocation();
   return (
-    <div className=" flex  gap-5 text-mine-shaft-300 h-full items-center ">
+    <div className=" lg-mx:hidden flex  gap-5 text-mine-shaft-300 h-full items-center ">
       {links.map((link, index) => (
         <div
           className={` ${location.pathname ==  link.url ? "border-mine-shaft-600 text-bright-sun-400" : "border-transparent"} border-[2px] p-2 h-full flex items-center`}
