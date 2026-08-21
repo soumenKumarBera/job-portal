@@ -44,11 +44,11 @@ const Header = () => {
 
   useEffect(() => {
     console.log(token);
-    if (token !=  null) {
+    if (token) {
       const decode = jwtDecode(localStorage.getItem("token") || "");
       dispatch(setUser({ ...decode, email: decode.sub }));
     }
-    if(token != null){
+    if(token){
     getProfile(user?.profileId)
       .then((res: any) => {
         dispatch(profileAction.setProfile(res));

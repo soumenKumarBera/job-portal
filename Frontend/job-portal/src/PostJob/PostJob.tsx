@@ -105,19 +105,19 @@ const PostJob = () => {
   };
 
   return (
-    <div className="w-4/5 mx-auto pt-5 pb-10">
+    <div className="px-16 mx-auto pt-5 pb-10 bs-mx:px-10 xs-mx:px-5">
       <div className="text-2xl font-semibold mb-5">Post a Job</div>
 
       <div className="flex flex-col gap-5 ">
-        <div className="flex gap-10 [&>*]:w-1/2">
+        <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
           <SelectInput form={form} name="jobTitle" {...select[0]} />
           <SelectInput form={form} name="company" {...select[1]} />
         </div>
-        <div className="flex gap-10  [&>*]:w-1/2">
+        <div className="flex gap-10  md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
           <SelectInput form={form} name="experience" {...select[2]} />
           <SelectInput form={form} name="jobType" {...select[3]} />
         </div>
-        <div className="flex gap-10  [&>*]:w-1/2">
+        <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
           <SelectInput form={form} name="location" {...select[4]} />
           <NumberInput
             label="Salary"
