@@ -16,7 +16,10 @@ import { updateProfile } from "../Servicess/ProfileService";
 import { profileAction } from "../Slices/ProfileSlice";
 import { useEffect, useState } from "react";
 import { postJob } from "../Servicess/jobService";
-import { errorNotification, successNotification } from "../Servicess/NotificationService";
+import {
+  errorNotification,
+  successNotification,
+} from "../Servicess/NotificationService";
 
 const JobDecs = (props: any) => {
   const data = DOMPurify.sanitize(props.description);
@@ -56,52 +59,59 @@ const JobDecs = (props: any) => {
     }
   }, [props]);
 
-  const handelClose =() =>{
-      
-    postJob({...props, jobStatus: "CLOSED"}).then((res)=>{
-      successNotification("Success", "Job cloased Successfully")
-    }).catch((err)=> errorNotification("Error", "err.response.data.errorMessage"))
-
-  }
+  const handelClose = () => {
+    postJob({ ...props, jobStatus: "CLOSED" })
+      .then((res) => {
+        successNotification("Success", "Job cloased Successfully");
+      })
+      .catch((err) =>
+        errorNotification("Error", "err.response.data.errorMessage"),
+      );
+  };
 
   return (
-    <div className="w-2/3  pb-5">
-      <div className="flex justify-between">
-        <div className="flex gap-2 items-center">
+    <div className="w-2/3 bs-mx:w-full pb-5">
+      <div className="flex justify-between flex-wrap">
+        <div className="flex gap-2 items-center ">
           <div className="p-3 bg-mine-shaft-600 rounded-xl">
             <img
-              className="h-14 "
+              className="h-14 xs-mx:h-11"
               src={`/Icons/${props.company}.png`}
               alt={props.company}
             />
           </div>
-          <div>
-            <div className="font-semibold">{props.jobTitle}</div>
-            <div className="text-lg text-mine-shaft-400">
-              {props.company} &#x2022; {timeAgo(props.postTime)} &#x2022;{" "}
-              {props.applicants ? props.applicants.length : 0} Applications
+          <div >
+            <div className="font-semibold sm-mx:text-lg">{props.jobTitle}</div>
+            <div className="text-lg sm-mx:text-sm text-mine-shaft-400 flex flex-wrap">
+              <span> &#x2022; {props.company}</span>{" "}
+              <span> &#x2022; {timeAgo(props.postTime)} </span>{" "}
+              <span>
+                {" "}
+                &#x2022; {props.applicants ? props.applicants.length : 0}{" "}
+                Applications{" "}
+              </span>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 items-center">
-          {(props.edit ||
-            !applied )&& (
-              <Link to={props.edit?`/post-job/${props.id}`:`/apply-job/${props.id}`}>
-                <Button
-                  variant="light"
-                  className="!text-bright-sun-400"
-                  color="orange"
-                >
-                  { props.closed? "Reopen" : props.edit ? "Edit" : "Apply"}
-                </Button>
-              </Link>
-            )}
-          {!props.edit && applied && (
-            <Button
-              variant="light" color="green"
-              className="!text-green-700"
+        <div className="flex sm:flex-col gap-3 items-center sm-mx:my-3 sm-mx:w-full sm-mx:[&>button]:w-full">
+          {(props.edit || !applied) && (
+            <Link
+              to={
+                props.edit ? `/post-job/${props.id}` : `/apply-job/${props.id}`
+              }
             >
+              <Button
+                variant="light"
+                className="!text-bright-sun-400"
+                color="orange"
+              >
+                {props.closed ? "Reopen" : props.edit ? "Edit" : "Apply"}
+              </Button>
+            </Link>
+          )}
+          {!props.edit && applied && (
+            <Button variant="light" color="green" className="!text-green-700">
               Applied
             </Button>
           )}
@@ -132,11 +142,11 @@ const JobDecs = (props: any) => {
       </div>
       <Divider size="xs" my="xl" />
 
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-wrap">
         {card.map((item, index) => (
           <div key={index} className="flex flex-col items-center gap-1">
             <ActionIcon
-              className="!h-12 !w-12 !text-bright-sun-400"
+              className="!h-12 !w-12 xs-mx:!size-8 !text-bright-sun-400"
               variant="light"
               radius="xl"
               aria-label="Settings"
@@ -145,7 +155,7 @@ const JobDecs = (props: any) => {
             </ActionIcon>
 
             <div className="text-mine-shaft-300 text-sm">{item.name}</div>
-            <div className="font-semibold">
+            <div className="font-semibold xs-mx:text-sm">
               {props ? props[item.id] : "NA"}{" "}
               {item.id == "packageOffered" && <> LPA </>}
             </div>
@@ -160,10 +170,11 @@ const JobDecs = (props: any) => {
         <div className=" flex flex-wrap gap-2">
           {props?.skillsRequired?.map((item: any, index: number) => (
             <ActionIcon
-              className="!h-fit !w-fit font-medium !text-bright-sun-400"
+              className="!h-fit !w-fit font-medium xs-mx:!text-xs !text-bright-sun-400"
               variant="light"
               radius="xl"
               p="xs"
+              
               aria-label="Settings"
             >
               {item}
@@ -176,7 +187,7 @@ const JobDecs = (props: any) => {
 
       <div
         className="[&_h4]:text-xl [&_h4]:my-5 [&_h4]:font-semibold [&_h4]:text-mine-shaft-200  [&_p]:text-justify  [&_*]:text-mine-shaft-300 
-       [&_li]:marker:text-bright-sun-400 [&_li]:mb-1 "
+       [&_li]:marker:text-bright-sun-400 [&_li]:mb-1 [&_p]:text-sm [&_li]:text-sm "
         dangerouslySetInnerHTML={{ __html: data }}
       ></div>
 
@@ -184,7 +195,7 @@ const JobDecs = (props: any) => {
 
       <div>
         <div className="text-xl font-semibold mb-5">About Company</div>
-        <div className="flex justify-between mb-3">
+        <div className="flex justify-between mb-3 xs-mx:flex-wrap">
           <div className="flex gap-2 items-center">
             <div className="p-3 bg-mine-shaft-600 rounded-xl">
               <img
@@ -199,17 +210,17 @@ const JobDecs = (props: any) => {
             </div>
           </div>
 
-          <Link to={`/company/${props.company}`}>
+          <Link to={`/company/${props.company}`} className="xs-mx:!w-full xs-mx:[&>button]:w-full">
             <Button
               variant="light"
-              className="!text-bright-sun-400"
+              className="!text-bright-sun-400 xs-mx:mt-3"
               color="orange"
             >
               Company Page
             </Button>
           </Link>
         </div>
-        <div className="text-mine-shaft-300 text-justify">
+        <div className="text-mine-shaft-300 text-justify xs-mx:text-sm">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem, quis
           minima assumenda sunt, doloribus accusantium nobis laudantium modi
           dolore facere veniam, ea ipsam. Rerum cupiditate, inventore fugit

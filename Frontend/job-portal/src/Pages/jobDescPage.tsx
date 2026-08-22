@@ -41,7 +41,7 @@ const JobdescPage = () => {
         </Button>
       </Link>
       {/* <Divider size="xs" /> */}
-      <div className="flex gap-5 pb-5 justify-around">
+      <div className="flex gap-5 pb-5 justify-around bs-mx:flex-wrap">
 
         <JobDecs {...job}/>
         <RecommendedJob/>

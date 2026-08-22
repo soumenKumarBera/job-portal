@@ -37,7 +37,7 @@ const JobCart = (jobDetails: any) => {
   };
 
   return (
-    <div className="bg-mine-shaft-700 min-h-[300px] p-4 w-72 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !bright-sun-400 ">
+    <div className="bg-mine-shaft-700 md-mx:w-full min-h-[300px] p-4 w-72 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !bright-sun-400 ">
       <div className="flex justify-between ">
         <div className="flex gap-2 items-center">
           <div className="p-2 bg-mine-shaft-600 rounded-md">
